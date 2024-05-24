@@ -4,6 +4,8 @@
 
 declare global {
     type ONE = { [k: string]: any }
+    type ONEO = { [k: string]: ONE }
+
     type MANY = ONE[ ]
     
     type ANYS = any[ ]

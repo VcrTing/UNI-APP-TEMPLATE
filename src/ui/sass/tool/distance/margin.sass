@@ -1,0 +1,21 @@
+
+// margin
+@each $k, $v in $dss
+  .mt#{$k}
+    margin-top: $v
+    
+@each $k, $v in $dss
+  .mi#{$k}
+    margin-left: $v
+    
+@each $k, $v in $dss
+  .mr#{$k}
+    margin-right: $v
+    
+@each $k, $v in $dss
+  .mb#{$k}
+    margin-bottom: $v
+
+.mx-rev
+    margin-left: -$ds
+    margin-right: -$ds

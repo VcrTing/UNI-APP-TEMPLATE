@@ -1,7 +1,7 @@
 import type { Store } from 'vuex';
-import app from './app_store'
+import app from './global/app-store'
 
-// 导出 STORE
+// 导出 APP STORE
 export const appStore: Store<AppStore> = app.appStore
 
 // 安装 STORE

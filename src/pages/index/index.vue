@@ -4,6 +4,7 @@
 		<GlobalVuex/>
 
 		<CakeGlobal/>
+		<CoGlobal/>
 	</view>
   </view>
 </template>

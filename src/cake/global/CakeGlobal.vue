@@ -1,6 +1,8 @@
 <template>
     <view>
+        <!-- 这是个全局加载 -->
         <CakeGlobalLoading/>
+        <!-- 这是个全局页面跳转 -->
         <CackeGlobalPageLuncher/>
     </view>
 </template>

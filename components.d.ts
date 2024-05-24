@@ -11,8 +11,11 @@ declare module 'vue' {
     CackeGlobalPageLuncher: typeof import('./src/cake/global/luncher/CackeGlobalPageLuncher.vue')['default']
     CakeGlobal: typeof import('./src/cake/global/CakeGlobal.vue')['default']
     CakeGlobalLoading: typeof import('./src/cake/global/ioading/CakeGlobalLoading.vue')['default']
+    CoGlobal: typeof import('./src/components/global/CoGlobal.vue')['default']
+    CoGlobalRouter: typeof import('./src/components/global/CoGlobalRouter.vue')['default']
+    CoGlobalRouterDefender: typeof import('./src/components/global/router/CoGlobalRouterDefender.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    UiGlobalLoading: typeof import('./src/ui/ui_global/ioading/UiGlobalLoading.vue')['default']
+    UiGlobalLoading: typeof import('./src/ui/global/ioading/UiGlobalLoading.vue')['default']
   }
 }

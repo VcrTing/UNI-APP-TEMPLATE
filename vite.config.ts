@@ -8,10 +8,10 @@ import Components from 'unplugin-vue-components/vite';
 export default defineConfig({
   plugins: [
     Components({
-      dirs: [ 'src/components', 'src/ui/ui_global', 'src/cake/global' ]
+      dirs: [ 'src/components', 'src/ui/global', 'src/cake/global', 'src/components/global' ]
     }),
     AutoImport({
-      imports: [ 'vue', 'vue-router', 'pinia' ],
+      imports: [ 'vue', 'vue-router', 'vuex' ],
       dts: 'src/plugin/auto-import.d.ts',
       eslintrc: {
         enabled: false

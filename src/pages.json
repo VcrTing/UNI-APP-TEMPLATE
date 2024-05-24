@@ -5,7 +5,14 @@
 			"style": {
 				"navigationBarTitleText": "表单展示器"
 			}
+		},
+		{
+			"path": "pages/auth/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
 		}
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
