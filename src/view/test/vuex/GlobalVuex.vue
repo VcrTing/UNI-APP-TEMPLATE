@@ -40,8 +40,10 @@
 </template>
 
 <script setup lang="ts">
-import { appStore } from '@/store/install';
+import { appStore } from '../../../memory/stores'
 // const prp = defineProps<{}>()
+
+
 
 const ioading = computed((): number => appStore.state.ioading)
 const menu = computed((): number => appStore.state.menu)

@@ -2,7 +2,7 @@
 import { ROLE_ANON } from '@/conf/conf-role';
 import { Store, createStore } from 'vuex';
 
-const authStore: Store<AuthStore> = createStore({
+const _authStore: Store<AuthStore> = createStore({
     
     state: <AuthStore>{
         jwts: {
@@ -21,6 +21,4 @@ const authStore: Store<AuthStore> = createStore({
     }
 })
 
-export default {
-    authStore
-}
+export default _authStore

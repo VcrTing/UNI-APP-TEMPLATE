@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { appStore } from '@/store/install';
+import { appStore } from '../../../memory/stores'
 
 // const prp = defineProps<{}>()
 const ioading = computed(() => appStore.getters.is_ioading)

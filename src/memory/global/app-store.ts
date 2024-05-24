@@ -1,7 +1,7 @@
 
 import { Store, createStore } from 'vuex';
 
-const appStore: Store<AppStore> = createStore({
+const _appStore: Store<AppStore> = createStore({
     
     state: <AppStore>{
 
@@ -53,6 +53,4 @@ const appStore: Store<AppStore> = createStore({
     */
 })
 
-export default {
-    appStore
-}
+export default _appStore

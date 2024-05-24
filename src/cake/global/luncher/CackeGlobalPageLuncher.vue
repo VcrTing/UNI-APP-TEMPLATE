@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { appStore } from '@/store/install';
+import { appStore } from '../../../memory/stores'
 
 // const prp = defineProps<{}>()
 
