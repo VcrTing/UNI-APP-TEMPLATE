@@ -1,6 +1,6 @@
 
 export const uni_get_input_v = (e: ONE = {}): SN => {
-    const v = e.target ? e.target.value : null
+    const v = e.detail ? e.detail.value : null
     return (v == null || v == undefined) ? '' : v
 }
 

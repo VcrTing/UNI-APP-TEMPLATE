@@ -4,6 +4,7 @@ import { NET_URI_COMPANY, NET_URI_COMPANY_API } from "@/conf/conf-net";
 import Net from "./net";
 import { IS_DEBUG_LOG } from "@/conf/conf";
 
+/*
 IS_DEBUG_LOG ? 
 
 console.log("生成 NET MASTER 实例，",
@@ -12,6 +13,7 @@ console.log("生成 NET MASTER 实例，",
 ) 
 
 : undefined;
+*/
 
 // 主数据源
 const master = new Net(
@@ -24,7 +26,7 @@ const master = new Net(
     NET_TIMEOUT_GET, NET_TIMEOUT_POS, NET_IS_LOG
 );
 
-
+/*
 IS_DEBUG_LOG ? 
 
 console.log("生成 NET COMPANY 实例，",
@@ -33,6 +35,7 @@ console.log("生成 NET COMPANY 实例，",
 ) 
 
 : undefined;
+*/
 
 // 公司数据源
 const company = new Net(

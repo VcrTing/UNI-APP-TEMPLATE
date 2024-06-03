@@ -1,23 +1,65 @@
 
-import { ROLE_ANON } from '@/conf/conf-role';
+import { ROLE_ANON, ROLE_AUTH } from '@/conf/conf-role';
+import { storage } from '@/tool/web/storage';
 import { Store, createStore } from 'vuex';
+
+export enum AutoLoginStatus {
+    ALREADY_LOGIN,
+    AUTO_SUCCESS,
+    AUTO_FAIL
+}
 
 const _authStore: Store<AuthStore> = createStore({
     
     state: <AuthStore>{
-        jwts: {
-
-        },
-        role: ROLE_ANON
+        info: <ONE>{ },
+        user: <ONE>{ },
+        auth: <ONE>{ },
+        jwt: '',
+        role: ROLE_ANON,
+        company: <ONE>{ },
     },
     getters: {
-        
+        jwt: s => s.jwt,
+        username: s => s.user.username,
+        user_id: s => s.user.id,
+        company_id: s => s.company.id,
+        is_login: s => (s.role === ROLE_ANON) ? false : ( s.jwt && (s.jwt.length > 0) )
     },
     mutations: {
-        // 使用案例，vuex.commit('change', [ 'ioading', -1 ])
-        // 意思是 把 ioading 改为 -1
-        change (state: any, v: ANYS) { state[v[0]] = v[1] },
-        
+        _login: (s: ONE, auth: ONE) => {
+            storage.set('jwt', auth.token)
+            s.company = auth.company 
+            s.user = auth.user 
+            s.jwt = auth.token 
+            s.role = ROLE_AUTH
+        } 
+    },
+
+    actions: {
+        // 使用案例，vuex.dispatch('change', [ 'ioading', -1 ])
+        // 或者 authReFresh('ioading', -1)
+        change: (c: ONE, vs: ANYS) => (c.state[ vs[0] ] = vs[1]),
+        /**
+         * 
+         */
+        login: ({ commit }, auth: ONE) => {
+            storage.set('auth', auth)
+            commit('_login', auth)
+        },
+        // 1 自动登录成功，0 已经登录了，-1 
+        auto_login: ({ getters, commit }): AutoLoginStatus => {
+            if (!getters.is_login) {
+                const auth: ONE | undefined = storage.get('auth')
+                if (auth) {
+                    commit('_login', auth); 
+                    return AutoLoginStatus.AUTO_SUCCESS
+                } 
+                return AutoLoginStatus.AUTO_FAIL
+            }
+            return AutoLoginStatus.ALREADY_LOGIN
+        }
+       
     }
 })
 

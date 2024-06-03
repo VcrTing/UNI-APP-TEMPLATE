@@ -1,12 +1,4 @@
-.w-382
-    width: 38.2%
-.w-618
-    width: 61.8%
-    
-.w-333
-    width: 33.3%
-.w-666
-    width: 66.6%
+
 
 @function width($i)
     @return $i * 1%
@@ -16,7 +8,7 @@
     .w-#{$i}
         width: width($i)
 
-$smaii: ("max": 325)
+/* ================================================================================== */
 
 // SMAII
 @each $k, $v in $smaii
@@ -32,3 +24,4 @@ $smaii: ("max": 325)
         @for $i from 0 through 100
             .w-#{$i}-s
                 width: width($i)
+

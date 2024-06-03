@@ -1,2 +1,2 @@
 
-type ROLES = 'ANON' | 'AUTH'
+type ROLES = 'ANON' | 'AUTH' | 'ADMIN'

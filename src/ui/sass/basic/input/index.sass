@@ -1,3 +1,18 @@
 
-.o-input
+.inp
     user-select: none
+    @extend .bd
+
+$fs-inp-pchd: 0.92em
+
+// DS
+$ds-inp: 1.62rem
+.pi-inp
+    padding-left: $ds-inp
+.pr-inp
+    padding-right: $ds-inp
+.px-inp
+    @extend .pi-inp
+    @extend .pr-inp
+
+@import ./inp-size

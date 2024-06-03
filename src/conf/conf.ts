@@ -1,3 +1,4 @@
+import { ROLE_AUTH } from "./conf-role"
 
 // 是否 打开 网络请求的 打印
 export const IS_NET_LOG = true 
@@ -9,3 +10,13 @@ export const IS_DEBUG_LOG = true
 export const IS_TEST_MODE = true
 
 // 网络有关的 配置，请查看 net.ts
+export const TEST_LOGIN_USER: ONE = {
+    'ADMIN': <ONE>{
+        username: 'qiong',
+        password: 'ZT123zlt_'
+    },
+    'AUTH': <ONE>{
+        username: 'qiong2',
+        password: 'ZT123zlt_'
+    }
+}

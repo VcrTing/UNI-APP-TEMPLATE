@@ -1,22 +1,31 @@
 {
-	"pages": [ // pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ 
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "表单展示器"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
 			"path": "pages/auth/login/login",
 			"style": {
+				"navigationStyle": "custom",
 				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/business/report/sale/sales_order",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "销售订单"
 			}
 		}
 
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "溢彩",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}

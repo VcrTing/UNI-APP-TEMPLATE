@@ -1,0 +1,76 @@
+
+@import ./tbo-def
+
+$mh-td: 2.2rem
+
+.mh-td
+    min-height: $mh-td
+
+.ih-td
+    line-height: $mh-td
+
+$mh-tr: 2.76rem
+.mh-tr
+    min-height: $mh-tr
+.ih-tr
+    line-height: $mh-tr
+
+.tbo-wrapper
+    position: relative
+    max-height: 70vh
+
+.tbo
+    .t-header
+        z-index: 16
+    .t-body-con
+        z-index: 12
+    .t-body-ioading
+        z-index: 14
+    .t-body
+        .td
+            @extend .px-s
+    &,
+    .t-body-con
+        position: relative
+    .t-header
+        position: sticky
+        top: 0
+    
+    //
+    .o-trangle-group
+        z-index: 26
+
+.o-trangle-group
+    .o-trangle-group-con
+        width: 100%
+    .trangie-group
+        right: 0.1rem
+
+.tbo-flex
+    .tr, .th, 
+    .t-header, .t-body, .t-body-con
+        border: none
+    .t-body
+        .td
+            @extend .bd
+
+    .th
+        @extend .fx-s
+        @extend .mh-tr
+    .tr,
+    .th
+        @extend .fx-s
+    .td-inner
+        white-space: nowrap
+        @extend .o-s-x
+        @extend .mh-td
+        @extend .ih-td
+
+    .t-body-ioading
+        background: rgba(0, 0, 0, 0.2)
+    
+.td-freeze
+    position: sticky
+    left: 0
+    z-index: 30
+    

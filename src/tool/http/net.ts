@@ -1,25 +1,36 @@
+import { promise } from "../util/future"
+import { netser, netser_err, netser_succ } from "./netser"
 
+const error = (error: string = '网络连接错误。'): Promise<UniApp.RequestSuccessCallbackResult> => new Promise( resolve => resolve({
+    statusCode: 500,
+    data: { error },
+    header: { },
+    cookies: [ ]
+}))
 
 class NeTooi {
     // 组装 uri
-    uri(api: string, endpoint: string, suffix: string = ''): string { return api + '/' + endpoint + '/' + suffix }
+    // 注意，有没有 / 尾巴有时候也会出错
+    _uri(api: string, endpoint: string, suffix: string | null = ''): string { return api + '/' + endpoint + (suffix ?  '/' + suffix : '') }
 
-    headers (jwt: string | null, isF: boolean = false): ONE { 
+    _headers (jwt: string | null, isF: boolean = false): ONE { 
         const res = <ONE>{ 
             'Content-Type': isF ? 'multipart/form-data' : 'application/json' 
         }
         if (jwt) { 
             res['Authorization'] = 'Bearer ' + jwt 
             res['X-Access-Token'] = jwt
+            // res['VcrTing-Token'] = jwt
+            // res['Access-Control-Request-Headers'] = jwt
         } 
         return res 
     }
-    params (condition: any, res: string = '?'): string {  
+    _params (condition: any, res: string = '?'): string {  
         if (JSON.stringify(condition) != '{}') { 
             for (const k in condition) { res += ( k + '=' + condition[k] + '&' ) }
         } return res }
 
-    config (
+    _config (
         method: 'GET' | 'POST' | 'PUT' | 'DELETE', 
         url: string,
         data: ONE,
@@ -39,17 +50,17 @@ class NeTooi {
      * @param is_file 
      * @returns 
      */
-    config_get(url: string, params: ONE = {}, jwt: string = '', is_file: boolean = false) {
-        return this.config('GET', url, params, this.headers(jwt, is_file), this.TIMEOUT)
+    _config_get(url: string, params: ONE | null, jwt: string = '', is_file: boolean = false) {
+        return this._config('GET', url, params ? params : {}, this._headers(jwt, is_file), this.TIMEOUT)
     }
-    config_pos(url: string, data: ONE = {}, jwt: string = '', is_file: boolean = false) {
-        return this.config('POST', url, data, this.headers(jwt, is_file), this.TIMEOUT_S)
+    _config_pos(url: string, data: ONE | null, jwt: string = '', is_file: boolean = false) {
+        return this._config('POST', url, data ? data : {}, this._headers(jwt, is_file), this.TIMEOUT_S)
     }
-    config_put(url: string, data: ONE = {}, jwt: string = '', is_file: boolean = false) {
-        return this.config('PUT', url, data, this.headers(jwt, is_file), this.TIMEOUT_S)
+    _config_put(url: string, data: ONE | null, jwt: string = '', is_file: boolean = false) {
+        return this._config('PUT', url, data ? data : {}, this._headers(jwt, is_file), this.TIMEOUT_S)
     }
-    config_dei(url: string, data: ONE = {}, jwt: string = '', is_file: boolean = false) {
-        return this.config('DELETE', url, data, this.headers(jwt, is_file), this.TIMEOUT_S)
+    _config_dei(url: string, data: ONE | null, jwt: string = '', is_file: boolean = false) {
+        return this._config('DELETE', url, data ? data : {}, this._headers(jwt, is_file), this.TIMEOUT_S)
     }
 }
 
@@ -71,63 +82,77 @@ class Net extends NeTooi {
     }
 
     // 创建 URL
-    build_url(url_name: string, url_suffix: string = '') { return this.uri(this.domain, this.endpoints[url_name], url_suffix); }
+    build_url(url_name: string, url_suffix: string | null = '') { return this._uri(this.domain, this.endpoints[url_name], url_suffix); }
+
+    // 里面使用 uni.request 作请求
+    adapter (config: UniApp.RequestOptions): NET_RES_PROMISE {
+        return new Promise(resolve => {
+            uni.request({
+                ...config,
+                fail: (err) => resolve( netser_err( err ) ),
+                success: (res) => {
+                    console.log('请求 SUCCESS =', res)
+                    resolve( netser_succ( res ) );
+                },
+            })
+        })
+    }
 
     /**
      * GET
      */
     get (
         url_name: string, 
-        url_suffix: string = '', 
-        params: ONE = {}
+        url_suffix: string | null, 
+        params: ONE | null
     )
-    : Promise<ONE> 
+    : NET_RES_PROMISE
     {
         // 请求 URL
         const __url: string = this.build_url(url_name, url_suffix);
         // 请求 配置
-        const __config: UniApp.RequestOptions = this.config_get(__url, params, this.jwt(), false);
+        const __config: UniApp.RequestOptions = this._config_get(__url, params ? params : { }, this.jwt(), false);
         if (this.is_log) {
             console.log("GET", __url, __config)
         }
         // 返回
-        return uni.request(__config)
+        return this.adapter(__config);
     }
 
-    pos (url_name: string, url_suffix: string = '', data: ONE = {}): Promise<ONE> {
+    pos (url_name: string, url_suffix: string | null, data: ONE | null): NET_RES_PROMISE {
         // 请求 URL
         const __url: string = this.build_url(url_name, url_suffix)
         // 请求 配置
-        const __config: UniApp.RequestOptions = this.config_pos(__url, data, this.jwt(), false)
+        const __config: UniApp.RequestOptions = this._config_pos(__url, data, this.jwt(), false)
         if (this.is_log) {
             console.log("POST", __url, __config)
         }
         // 返回
-        return uni.request(__config)
+        return this.adapter(__config);
     }
 
-    put (url_name: string, url_suffix: string = '', data: ONE = {}): Promise<ONE> {
+    put (url_name: string, url_suffix: string | null, data: ONE | null): NET_RES_PROMISE {
         // 请求 URL
         const __url: string = this.build_url(url_name, url_suffix)
         // 请求 配置
-        const __config: UniApp.RequestOptions = this.config_pos(__url, data, this.jwt(), false)
+        const __config: UniApp.RequestOptions = this._config_pos(__url, data, this.jwt(), false)
         if (this.is_log) {
             console.log("PUT", __url, __config)
         }
         // 返回
-        return uni.request(__config)
+        return this.adapter(__config);
     }
     
-    del (url_name: string, url_suffix: string = '', data: ONE = {}): Promise<ONE> {
+    del (url_name: string, url_suffix: string | null, data: ONE | null): NET_RES_PROMISE {
         // 请求 URL
         const __url: string = this.build_url(url_name, url_suffix)
         // 请求 配置
-        const __config: UniApp.RequestOptions = this.config_pos(__url, data, this.jwt(), false)
+        const __config: UniApp.RequestOptions = this._config_pos(__url, data, this.jwt(), false)
         if (this.is_log) {
             console.log("DELETE", __url, __config)
         }
         // 返回
-        return uni.request(__config)
+        return this.adapter(__config);
     }
 }
 
