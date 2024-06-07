@@ -8,12 +8,35 @@
 			}
 		},
 		{
+			"path": "pages/report/report",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "报表"
+			}
+		},
+		{
+			"path": "pages/form/form",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "表单"
+			}
+		},
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
 			"path": "pages/auth/login/login",
 			"style": {
 				"navigationStyle": "custom",
 				"navigationBarTitleText": "登录"
 			}
 		},
+
+		/* 自定义 */
 		{
 			"path": "pages/business/report/sale/sales_order",
 			"style": {

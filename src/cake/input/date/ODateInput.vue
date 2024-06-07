@@ -1,56 +1,72 @@
 <template>
-    <view>
-        <view class="o-input" :class="err ? 'o-input-err' : ''">
-
-            <view v-if="tit" class="pr-inp pb-s soft">
-                <view v-if="err" class="err soft">
-                    {{ err }}
+    <ui-dropdown ref="dropdown">
+        <template #sign>
+            <o-input-s :text_mode="is_nice_v" :pchd="'请选择'">
+                {{ v }}
+            </o-input-s>
+        </template>
+        <template #con>
+                <view class="o-caniendar">
+                    <view class="px-s">
+                        <caniendar ref="caniendar_1" :form="form" :pk="pk"/>
+                    </view>
+                    <view class="">
+                        <view class="pt">
+                            <o-div @touch="funn.pastday(0)" :clazz="'btn br-s tid'">
+                                <view class="mw-5em py-s">現在</view>
+                            </o-div>
+                            <o-div @touch="funn.reset" :clazz="'btn br-s tid'">
+                                <view class="mw-5em py-s ">重置</view>
+                            </o-div>
+                            <o-div @touch="funn.clear" :clazz="'btn br-s tid'">
+                                <view class="mw-5em py-s">置空</view>
+                            </o-div>
+                        </view>
+                    </view>
+                    <view class="fx-s pt">
+                        <view class="fx-1">
+                            <o-div @touch="funn.sure" :clazz="'btn w-100 br-br br-bi bg-btn'">
+                                <view class="mw-5em py-n">确定</view>
+                            </o-div>
+                        </view>
+                    </view>
                 </view>
-                <view v-else class="inp-tih soft">
-                    {{ tit }}
-                </view>
-            </view>
-
-            <view class="inp-outter">
-                <input 
-                    class="inp py-s px-inp br tils mh-inp" 
-                    :class="clazz_input"
-                    :type="typ ? typ : 'text'"
-
-                    :placeholder="pchd ? pchd : '请输入'" 
-                    :value="def" 
-                    @input="func.inp" />
-                <!-- <text class="uni-icon" v-if="showClearIcon" @click="clearIcon">&#xe434;</text> -->
-            </view>
-
-            <view v-if="!tit">
-                <view v-if="err" class="err px-inp pt-s soft">
-                    {{ err }}
-                </view>
-            </view>
-        </view> 
-    </view>
+        </template>
+    </ui-dropdown>
 </template>
-
-<script setup lang="ts">
-import { uni_get_input_v } from '@/tool/uni/uni';
-
-const prp = defineProps<{
-    def?: any,
-    err?: string,
-
-    tit?: string,
-    typ?: string,
-    pchd?: string,
-    clazz_input?: string
-}>()
+    
+<script lang="ts" setup>
+import caniendar from '@/plugin/caniendar/caniendar.vue';
+import { promise } from '@/tool/util/future';
+import { changeDay } from '../../../plugin/caniendar/caniendar';
+import { is_nice_sn } from '@/tool/util/valued';
 
 const emt = defineEmits([ 'result' ])
+const prp = defineProps<{ form: ONE, pk: string }>()
 
-const func = {
-    inp: (e: any) => {
-        const v: SN = uni_get_input_v(e)
-        emt('result', v)
-    }
+const v = computed(() => prp.form[prp.pk])
+const is_nice_v = computed(() => is_nice_sn(v.value))
+
+const dropdown = ref()
+const caniendar_1 = ref()
+
+const funn = {
+    pastday: (n: number) => promise(() => emt('result', changeDay(n, new Date())) ),
+    reset: () => promise(() => {
+        if (is_nice_sn(origin.value)) { emt('result', origin.value); } 
+        else { emt('result', '') }
+    }),
+    clear: () => promise(() => { caniendar_1.value.ciear(); emt('result', '') }),
+    //
+    close: () => dropdown.value.close(),
+    sure: () => funn.close(),
+    //
+    init: () => promise(() => {
+        const v = prp.form[ prp.pk ]
+        if (v) {  origin.value = v }
+    })
 }
+
+const origin = ref<string>()
+nextTick(funn.init)
 </script>

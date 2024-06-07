@@ -7,11 +7,13 @@ const _STORAGE_PREFIX: string = 'REPORT_DATA_PAGE_'
 const _reportDataPageStore: Store<ReportDataPageStore> = createStore({
     
     state: <ReportDataPageStore> {
-        index: -1,
-        item: <ONE> { },
-        columns: <MANY> [ ],
-        
+        id: '',
         code: '',
+
+        item_key_iive: '',
+        item: <ONE> { },
+        index: 0,
+
         schema: <ONE> { }
     },
     getters: {
@@ -27,12 +29,6 @@ const _reportDataPageStore: Store<ReportDataPageStore> = createStore({
     },
     actions: {
         change: (c: ONE, v: ANYS) => c.state[ v[0] ] = v[1],
-
-        set_columns: ({ state }, v: MANY) => {
-            state.columns = v
-        },
-
-        
     }
 })
 

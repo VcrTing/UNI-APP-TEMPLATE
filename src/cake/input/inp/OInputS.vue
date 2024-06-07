@@ -5,12 +5,18 @@
 
             <view class="inp-outter">
                 <input 
-                    class="inp inp-s py-t pi pr-s br-s tils-s mh-inp-s" 
+                    v-if="!text_mode"
+                    class="inp inp-s inp-pure py-t pi pr-s br-s tils-s mh-inp-s" 
                     :class="clazz_inner"
 
                     :placeholder="pchd ? pchd : '请输入'" 
                     :value="def" 
                     @input="func.inp" />
+                <view 
+                    v-else
+                    class="inp inp-s py-t pi pr-s br-s tils-s mh-inp-s fx-i" >
+                    <slot></slot>
+                </view>
                 <!-- <text class="uni-icon" v-if="showClearIcon" @click="clearIcon">&#xe434;</text> -->
             </view>
         </view> 
@@ -25,6 +31,9 @@ const prp = defineProps<{
     err?: string,
     pchd?: string,
     label?: string,
+
+    text_mode?: boolean,
+
     clazz?: string,
     clazz_inner?: string
 }>()

@@ -9,7 +9,7 @@ $mh-td: 2.2rem
 .ih-td
     line-height: $mh-td
 
-$mh-tr: 2.76rem
+$mh-tr: 3.2rem // 2.76rem
 .mh-tr
     min-height: $mh-tr
 .ih-tr
@@ -17,7 +17,6 @@ $mh-tr: 2.76rem
 
 .tbo-wrapper
     position: relative
-    max-height: 70vh
 
 .tbo
     .t-header
@@ -25,13 +24,14 @@ $mh-tr: 2.76rem
     .t-body-con
         z-index: 12
     .t-body-ioading
-        z-index: 14
+        z-index: 32
     .t-body
         .td
             @extend .px-s
     &,
     .t-body-con
         position: relative
+        
     .t-header
         position: sticky
         top: 0
@@ -74,3 +74,6 @@ $mh-tr: 2.76rem
     left: 0
     z-index: 30
     
+$mh-tbo: 20em
+.mh-tbo
+    min-height: $mh-tbo

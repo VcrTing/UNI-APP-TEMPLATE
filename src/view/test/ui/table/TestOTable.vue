@@ -1,7 +1,7 @@
 <template>
     <view class="ps-r">
         <o-scroll :clazz="'tbo-wrapper scroll-hide'">
-
+ 
             <view class="tbo tbo-sec tbo-def tbo-flex" :style="{ 'width': table.w }">
 
                     <view class="t-header">

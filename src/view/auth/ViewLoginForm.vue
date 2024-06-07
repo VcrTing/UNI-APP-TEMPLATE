@@ -1,13 +1,13 @@
 <template>
     <view :class="class">
         <view class="py-s">
-            <o-input :pchd="'用户名'" :tit="'用户名'" :clazz_input="'mh-inp-x1'"
+            <o-input :pchd="'用户名'" :clazz_input="'mh-inp-x1 rnd'"
                 :def="form.username"
                 @result="func.username"
             />
         </view>
         <view class="py-s">
-            <o-input :pchd="'密码'" :tit="'密码'" :clazz_input="'mh-inp-x1'" :typ="'password'"
+            <o-input :pchd="'密码'" :clazz_input="'mh-inp-x1 rnd'" :typ="'password'"
                 :def="form.password"
                 @result="func.password"
             />
@@ -15,8 +15,11 @@
         <view class="py-s">
 
         </view>
-        <view class="py">
-            <o-button @tap="func.login" :clazz_con="'mh-btn-x1'">登录</o-button>
+        <view class="pb pt-x2 fx-c">
+            <o-button @tap="func.login" :clazz="'rnd w-100'" :clazz_text="'mh-btn-x1'">登录</o-button>
+            <!--
+            <o-f-i @tap="func.login" class="login-btn" :clazz="''" :clazz_text="'fx-c h1-imp w-2em h-2em'" :i="'a-r'"/>
+            -->
         </view>
     </view>
 </template>
@@ -26,7 +29,7 @@
 import server_auth from '@/server/auth/server_auth';
 import { authDispatch } from '@/memory/global';
 import uniRouter from '@/tool/uni/uni-router';
-import { future, futuring } from '@/tool/util/future';
+import { futuring } from '@/tool/util/future';
 
 const prp = defineProps<{ form: ONE, class: string | null }>()
 

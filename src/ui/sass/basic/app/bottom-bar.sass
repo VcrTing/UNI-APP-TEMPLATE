@@ -1,0 +1,42 @@
+
+.o-app-bottom-bar
+    bottom: 0
+    
+.app-bottom-bar-item-icon
+    position: relative
+    &::after
+        position: absolute
+        width: 100%
+        height: 100%
+
+$abb-die: #474747
+$abb-die-hv: #187e7e
+$abb-die-fcs: #187e7e
+
+.app-bottom-bar-item
+    color: $abb-die
+    &:hover
+        color: $abb-die-hv
+    &:active, &:focus, &:focus-visible
+        color: $abb-die-fcs
+
+$abb-iive: #11b4b4
+.app-bottom-bar-item-iive
+    color: $abb-iive
+    .app-bottom-bar-item-icon
+        transform: scale(1.2)
+
+// =========================================================
+$abb-btn-c: #11b4b4
+$abb-btn-bg: #defbfb
+.app-bottom-bar-btn
+
+    .app-bottom-bar-item-icon
+        color: $abb-btn-c
+        background: $abb-btn-bg
+        width: 2.4em
+        height: 2.4em
+        border-radius: 100%
+        display: flex
+        align-items: center
+        justify-content: center

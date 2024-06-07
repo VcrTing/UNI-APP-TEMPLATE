@@ -45,7 +45,15 @@ interface ReportSchema {
     sapApiName: string,
 
     __tab_name: string,
-    __tab_iive: boolean
+    __tab_iive: boolean,
+    __tab_sort_key: string, // 排序 KEY
+    __tab_sort_value: string, // 排序 值
+    __tbo_columns: OTableColumn[],
+
+    __pager_no: number, // 分页开始
+    __pager_size: number, // 分页尺寸
+
+    __net_query_param: ReportDataPageGetParam
 }
 
 
@@ -70,7 +78,7 @@ interface RSchemaQuery {
     defaultValue: SN
     isHide: boolean
     isRequired: boolean
-    options: string
+    options: ONE
     paramKey: string
     paramValue: string
     priority: number

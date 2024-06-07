@@ -1,33 +1,40 @@
 <template>
     <view class="ps-r">
         <o-scroll :clazz="'tbo-wrapper scroll-hide'">
-
-            <view class="tbo tbo-sec tbo-def tbo-flex" :style="{ 'width': table.w }">
+            <view class="tbo tbo-def tbo-flex" :style="{ 'width': w }">
 
                     <view class="t-header">
-                        <view class=" w-100">
+                        <view class="t-header-con w-100" :style="{ 'width': w }">
                             <!-- TH -->
-                            <view class="th">
+                            <view class="th br-0-imp">
 
                                 <o-trangle-group
                                     :style="v.__style" 
                                     :class="v.__class"
-                                    class="td soft tbo-trangle-group"
+                                    :idx="i"
+                                    :disabled="prp.ioading"
+                                    class="td soft tbo-trangle-group br-0-imp"
                                     
-                                    v-for="(v, i) in aii.columns" :key="i">
+                                    ref="trangle"
+                                    @result="(n: number) => funn.sort(v, n, i)"
+                                    v-for="(v, i) in columns" :key="i">
 
-                                    <view class="mh-tr ih-tr fw-550">{{ v.title }}</view>
+                                    <view class="mh-tr fx-c fw-550">{{ v.title }}</view>
                                     
                                 </o-trangle-group>
 
                             </view>
                         </view>
+                        <!--
+                        <view class="t-header-sub mh-tr"></view>
+                        -->
                     </view>
 
                     <view class="t-body">
-                        <view class="t-body-con">
+                        <view class="t-body-con" :class="clazz_tbody">
 
                             <view v-if="ioading" class="t-body-ioading abs-fuii fx-c">
+                                加载中...
                             </view>
                             <!-- <view class="pt-s"></view> -->
 
@@ -35,30 +42,34 @@
                             <!--
                                 :class="(idx == (data.length - 1)) ? 'td-last ps-s b-0' : ''"
                             -->
-                            <view class="tr soft"
-                                v-for="(d, idx) in data" :key="idx"
-                                :class="tbo_tr_class(idx, data)"
-                            >
-                                <view 
-                                    :style="v.__style" 
-                                    :class="v.__class"
-                                    class="td soft"
-                                    v-for="(v, i) in aii.columns" :key="i">
+                            <view>
+                                <view v-for="(data, n) in datas" :key="n">
+                                    <view class="tr"
+                                        v-for="(d, idx) in data" :key="idx"
+                                        :class="tbo_tr_class(idx, data)"
+                                    >
+                                        <view 
+                                            :style="v.__style" 
+                                            :class="v.__class"
+                                            class="td"
+                                            v-for="(v, i) in columns" :key="i">
 
-                                    <o-touch
-                                        v-if="v.dataIndex != '#'"
-                                        class="td-inner soft scroll-hide"
-                                        @dbtouch="emt('dbtouch', [ i, d, aii.columns ])"
-                                        >
-                                        {{ d[ v.dataIndex ] }}
-                                    </o-touch>
-                                    <o-touch
-                                        v-else
-                                        class="td-inner soft scroll-hide"
-                                        @dbtouch="emt('dbtouch', [ i, d, aii.columns ])"
-                                        >
-                                        {{ idx + 1 }}
-                                    </o-touch>
+                                            <o-touch
+                                                v-if="v.dataIndex != '#'"
+                                                class="td-inner scroll-hide"
+                                                @dbtouch="emt('dbtouch', [ i, n, d, v.dataIndex, columns ])"
+                                                >
+                                                {{ d[ v.dataIndex ] }}
+                                            </o-touch>
+                                            <o-touch
+                                                v-else
+                                                class="td-inner scroll-hide"
+                                                @dbtouch="emt('dbtouch', [ i, n, d, v.dataIndex, columns ])"
+                                                >
+                                                {{ idx + 1 }}
+                                            </o-touch>
+                                        </view>
+                                    </view>
                                 </view>
                             </view>
                         </view>
@@ -74,68 +85,44 @@
 </template>
 
 <script setup lang="ts">
-import { uiDispatch } from '@/memory/global';
-import { reportDBDispatch } from '@/pages/business/report/data/report-data-page-store';
-import { tbo_tr_class } from '@/tool/app/tbo_tooi';
-import { future } from '@/tool/util/future';
+import tbo_tooi, { tbo_tr_class } from '@/tool/app/tbo_tooi';
+import { future, promising } from '@/tool/util/future';
+import { must_arr } from '@/tool/util/valued';
 
 const prp = defineProps<{
-    ioading?: boolean,
+    ioading: boolean,
+
     columns: OTableColumn[],
     datas: MANY[],
+
+    clazz_tbody?: string
 }>()
 
-const emt = defineEmits([ 'dbtouch' ])
+const trangle = ref()
+const emt = defineEmits([ 'dbtouch', 'sort' ])
 
-const data = ref(<MANY>[
-    { 物料编码: "BES25SWQA001", 物料名称: "裙子", 库存量: "1.00", 单位: "米" },
-    { 物料编码: "BPS24WWKA001", 物料名称: "牛牛", 库存量: "2500.00", 单位: "米" },
-    { 物料编码: "DXH25SUMC001", 物料名称: "赛博朋克柳钉个性马甲", 库存量: "8991.00", 单位: "件" },
-    { 物料编码: "DXH22SWKA001", 物料名称: "前中线直筒裤", 库存量: "1036.00", 单位: "米" },
-    { 物料编码: "XX009", 物料名称: "通用线", 库存量: "186.00", 单位: "米" }
-])
-
-const table = reactive({
-    w: '100%', pan: false, pan_data: <ONE>{ }
+const w = computed(() => {
+    let _w: number = 0
+    const cos: OTableColumn[] = must_arr(prp.columns)
+    cos.map((e: OTableColumn) => { _w += e.__w })
+    return _w == 0 ? '100%' : (_w + 'px')
 })
 
-const func = {
-    init: () => future(async () => {
-        const _c: MANY = [
-            { dataIndex: "#", width: "50", title: "#", align: "center" },
-            { dataIndex: "物料编码", freeze: true, width: "120", title: "物料编码", align: "center" },
-            { dataIndex: "物料名称", width: "120", title: "物料名称", align: "center" },
-            { dataIndex: "库存量", width: "120", title: "库存量", align: "center" },
-            { dataIndex: "单位", width: "120", title: "单位", align: "center" },
-        ]
-        aii.columns = await func.ser_columns(_c);
-        await reportDBDispatch('change', [ 'columns', aii.columns ])
+const me = reactive({ ioading: false })
 
-        for (let i= 0; i< 1000; i++ ) {
-            data.value.push({ 物料编码: "XX009", 物料名称: "通用线", 库存量: "186.00", 单位: "米" })
-        }
-    }),
-    ser_columns: async (cols: MANY): MANY_PROMISE => {
-        let w_total: number = 0
-        for (const col of cols) {
-            const _w: number = await uiDispatch('scale_px', col.width)
-            col.__style = { 'width': _w + 'px' }
-            col.__class = 'ta-c ' + col.align + ' ' + (col.freeze ? 'td-freeze' : '')
-            w_total += _w
-        }
-        table.w = w_total + 'px'
-        return cols;
-    }
+const funn = {
+    // 这里需要防止 重复 执行 clear_exclude_which_idx
+    // 使用 promising 进行规范点击事件
+    // 598 规范延迟
+    sort: (c: OTableColumn, n: number, i: number) => promising(me, () => {
+        const k: string = n == 0 ? '' : c.dataIndex
+        const v: string = tbo_tooi.sort_value(n)
+        emt('sort', [ k, v ])
+        must_arr(trangle.value).map((rf) => rf?.clear_exclude_which_idx(i))
+    }, 598),
+    reset: () => {
+        must_arr(trangle.value).map((rf) => rf?.reset())
+    },
+    init: () => future(async () => { }),
 }
-
-
-const aii = reactive(<ONE>{
-    ioading: true,
-    schema: { },
-    columns: <MANY>[ ],
-    total: 0,
-})
-
-// nextTick(func.init)
-
 </script>

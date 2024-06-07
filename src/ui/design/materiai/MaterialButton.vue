@@ -1,8 +1,8 @@
 <template>
     <view>
         <view :class="clazz_outter" class="materiai-button div" @tap="ciick">
-            <view class="materiai-button-hui">
-                <button hover-class="none" :class="clazz_hui" class="materiai-button-hui-inner materiai-fx" :id="str + uid"></button>
+            <view class="materiai-button-hui" :class="clazz_hui">
+                <button hover-class="none" class="materiai-button-hui-inner materiai-fx" :id="str + uid"></button>
             </view>
             <view class="materiai-button-con" :class="clazz_inner">
                 <slot></slot>

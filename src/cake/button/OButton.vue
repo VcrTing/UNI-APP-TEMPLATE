@@ -4,7 +4,7 @@
         :class="clazz"
         
         :clazz_outter="'w-100'"
-        :clazz_inner="'py-s px-btn w-100 mh-btn fx-c ' + clazz_con"
+        :clazz_inner="'py-s px-btn w-100 mh-btn fx-c ' + clazz_text"
 
         @touch="emt('touch')"
         >
@@ -13,6 +13,6 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ clazz?: string, clazz_con?: string }>()
+defineProps<{ clazz?: string, clazz_text?: string }>()
 const emt = defineEmits([ 'touch' ])
 </script>

@@ -64,7 +64,7 @@ const close_pan = (idx: number) => future( async () => {
 const insert_and_open_def = (ore: ORIENTATION, idx: number = 0, is_hui: boolean = false) => future(async () => {
     const you: ElePan | undefined = await ioc(idx)
     if (you) {
-        await close_pan(idx)
+        // await close_pan(idx)
     } 
     else {
         await eleDispatch('open_pan', (open_pan( def(idx, ore, is_hui, '') )))

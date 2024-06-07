@@ -18,6 +18,13 @@
                 <o-button @touch="func.touch('pri')">弹出一个 Mod</o-button>
                 <o-button-out @touch="func.touch('pri out')">弹出一个 Pan</o-button-out>
                 <o-button-iht @touch="func.touch('pri iht')">弹出一个 Err</o-button-iht>
+                <view class="pt">
+                    <o-div :clazz="'br'" :clazz_inner="''">
+                        <view class="px py ta-c">
+                            DIV
+                        </view>
+                    </o-div>
+                </view>
             </view>
         <view class="py">
             <!-- TABLE -->
@@ -32,7 +39,7 @@
             </view>
             <view class="py">
                 <view class="br o-h">
-                    <test-o-table :ioading="aii.ioading" @dbtouch="pan.view_detail"/>
+                    <test-o-table :class="'test-o-tbo'" :ioading="aii.ioading" @dbtouch="pan.view_detail"/>
                 </view>
                 <view>
                     <o-button class="w-100" @touch="func.ioad">加载</o-button>
@@ -149,21 +156,23 @@
 
         <o-pan :idx="0">
             <o-pan-inner :idx="0">
-                <ViewBReportPanItemDetail/>
+                <ViewReportPanTableItemDetail/>
             </o-pan-inner>
         </o-pan>
+        <!--
         <o-pan :idx="1">
             <o-pan-inner :idx="1">
-                <ViewBReportPanFilter/>
+                <ViewReportPanTableFilter/>
             </o-pan-inner>
         </o-pan>
+        -->
     </view>
 </template>
 
 <script setup lang="ts">
 import pan_tooi from '@/tool/app/pan_tooi';
-import ViewBReportPanItemDetail from '../../business/report/table/pan/ViewBReportPanItemDetail.vue'
-import ViewBReportPanFilter from '../../business/report/table/pan/ViewBReportPanFilter.vue'
+import ViewReportPanTableItemDetail from '../../business/report/table/pan/ViewReportPanTableItemDetail.vue'
+import ViewReportPanTableFilter from '../../business/report/table/pan/ViewReportPanTableFilter.vue'
 import { reportDBDispatch } from '@/pages/business/report/data/report-data-page-store';
 import { future } from '@/tool/util/future';
 import TestOTable from './table/TestOTable.vue';
@@ -207,4 +216,7 @@ const func = {
     display: flex
     align-items: center
     justify-content: center
+.test-o-tbo
+    .tbo-wrapper
+        max-height: 70vh
 </style>

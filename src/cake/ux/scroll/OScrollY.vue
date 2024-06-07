@@ -1,5 +1,5 @@
 <template>
-    <view :class="clazz" class="o-scroll o-h oy-s ps-r zi-s">
+    <view :class="clazz" class="o-scroll scroll-hide o-h oy-s ps-r zi-s">
         <slot></slot>
     </view>
 </template>

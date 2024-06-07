@@ -1,24 +1,24 @@
 
 // 雪莲花 结构
 
+import tbo_tooi, { TBO_SORT_KEY_DEF } from "@/tool/app/tbo_tooi"
 import jsoner from "@/tool/util/jsoner"
-import { must_arr, ser_str_bool } from "@/tool/util/valued"
+import { must_arr, cnv_str_bool, must_one } from "@/tool/util/valued"
 
 const ser_schema_query = (src: RSchemaQueryOrigin): RSchemaQuery => {
     const res = <RSchemaQuery> { }
     
-    console.log('alertKeysMap 1 =', src.alertKeysMap)
     if (src.alertKeysMap) {
-        res.alertKeysMap = jsoner.parse( src.alertKeysMap )
+        res.alertKeysMap = must_one( jsoner.parse( src.alertKeysMap ) )
         console.log('alertKeysMap 2 =', jsoner.parse( src.alertKeysMap ))
     }
 
     res.alertSql = src.alertSql
     res.company = src.company
     res.defaultValue = src.defaultValue
-    res.isHide = ser_str_bool( src.isHide )
-    res.isRequired = ser_str_bool( src.isRequired )
-    res.options = src.options
+    res.isHide = cnv_str_bool( src.isHide )
+    res.isRequired = cnv_str_bool( src.isRequired )
+    res.options = must_one( jsoner.parse( src.options ) )
     res.paramKey = src.paramKey
     res.paramValue = src.paramValue
     res.priority = src.priority
@@ -48,9 +48,9 @@ const ser_schema = (src: ReportSchemaOrigin): ReportSchema | undefined => {
     if (src.fieldsMap) {
         res.fieldsMap = jsoner.parse( src.fieldsMap)
     }
-    res.isDynamicFields = ser_str_bool(src.isDynamicFields)
-    res.isImmediatelyQuery = ser_str_bool(src.isImmediatelyQuery)
-    res.isLinkForm = ser_str_bool(src.isLinkForm)
+    res.isDynamicFields = cnv_str_bool(src.isDynamicFields)
+    res.isImmediatelyQuery = cnv_str_bool(src.isImmediatelyQuery)
+    res.isLinkForm = cnv_str_bool(src.isLinkForm)
     res.levelName = src.levelName
     res.levelNo = src.levelNo
 
@@ -64,6 +64,11 @@ const ser_schema = (src: ReportSchemaOrigin): ReportSchema | undefined => {
     // 自家的
     res.__tab_name = src.tableName
     res.__tab_iive = false
+    res.__tbo_columns = []
+    res.__tab_sort_key = tbo_tooi.pkg_sort_key('')
+    res.__tab_sort_value = tbo_tooi.pkg_sort_value('')
+    res.__net_query_param = <ReportDataPageGetParam> { }
+    //
     return res
 }
 

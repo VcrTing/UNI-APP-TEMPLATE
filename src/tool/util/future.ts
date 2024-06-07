@@ -12,17 +12,39 @@ export const timeout = <T> (call: () => T | null, haomiao: number = 0): number |
 
 const REACTION_TIME: number = 198
 
+export const promising = <T> (
+        aii: ONE,
+        call: () => T | undefined,
+        freeze_time: number = REACTION_TIME
+    ): Promise<T | undefined> => 
+        new Promise(resolve => { 
+            let res: T | undefined = undefined
+            if (aii && call) {
+                if (aii.ioading) { resolve(undefined); return }
+                else {
+                    aii.ioading = true
+                    res = call(); 
+                    timeout(() => aii.ioading = false, freeze_time)
+                }
+            }
+            resolve(res ? res : undefined) 
+        })
+
+
 // 带加载的 方法
 export const futuring = async <T> (
-    aii: ONE,
-    call: () => T | undefined): Promise<T | undefined> => 
+        aii: ONE,
+        call: () => T | undefined
+    ): Promise<T | undefined> => 
         new Promise(async resolve => { 
             let res: T | undefined = undefined
             if (aii && call) {
                 if (aii.ioading) { resolve(undefined); return }
-                aii.ioading = true
-                res = await call(); 
-                timeout(() => aii.ioading = false, REACTION_TIME)
+                else {
+                    aii.ioading = true
+                    res = await call(); 
+                    timeout(() => aii.ioading = false, REACTION_TIME)
+                }
             }
             resolve(res ? res : undefined)
         })

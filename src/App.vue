@@ -18,7 +18,7 @@ nextTick(init_global_data)
 
 <style lang="sass">
 @import ./ui/sass/app/conf
-@import ./ui/sass/theme/_conf_theme_light/conf-theme-light-txt
+@import ./ui/sass/theme/_theme_light/conf-theme-light-txt
 @import ./ui/sass/app/media-screen
 
 // 全局样式定义

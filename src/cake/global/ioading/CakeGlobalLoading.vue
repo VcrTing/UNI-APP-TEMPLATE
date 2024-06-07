@@ -1,13 +1,8 @@
 <template>
     <view>
-        
         <view class="ps-f-fuii" v-if="ioading" @tap="func.close">
             <UiGlobalLoading class="abs-fuii zi-400 c-fff"/>
             <view class="abs-fuii bc-000 op-40 zi-400-s"></view>
-        </view>
-
-        <view v-if="IS_TEST_MODE">
-            CAKE_GLOBAL: LOADING = {{ ioading }}
         </view>
     </view>
 </template>

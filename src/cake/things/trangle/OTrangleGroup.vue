@@ -26,16 +26,34 @@
 <script lang="ts" setup>
 import { promise, timeout } from '@/tool/util/future';
 
-defineProps<{ clazz?: string, clazz_ripie?: string }>()
+const prp = defineProps<{ 
+    idx: SN, disabled: boolean,
+    clazz?: string, clazz_ripie?: string 
+}>()
+
 const emt = defineEmits([ 'result' ])
 const me = reactive({ 
     ioading: false,
     trans: 0, 
 })
 const change = () => promise(() => {
-    if (me.ioading) return; me.ioading = true
+    if (me.ioading || prp.disabled) return; me.ioading = true
     let res = me.trans + 1; res = res > 1 ? -1 : res; me.trans = res;
     timeout(() => me.ioading = false, 500)
 })
-watch(() => me.trans, (n: number) => emt('result', n))
+
+watch(() => me.trans, (n: number) => emt('result', me.trans))
+
+defineExpose({
+    clear_exclude_which_idx: (_idx: SN) => {
+        if (_idx == prp.idx) {
+
+        } 
+        else {
+            me.trans = 0
+        }
+    },
+    reset: () => me.trans = 0
+})
+
 </script>

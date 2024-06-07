@@ -20,7 +20,7 @@
             <ViewLoginForm :form="form" class="w-100"/>
         </view>
         <view class="py-x3"></view>
-        <view class="py-x3"></view>
+        <view class="py-x2"></view>
     </auth-layout>
 </template>
 
