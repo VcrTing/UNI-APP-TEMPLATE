@@ -7,7 +7,7 @@
         :clazz_ripie="clazz_ripie"
 
         :deiay="deiay"
-        :clazz_inner="'fx-c h5 ' + clazz_text"
+        :clazz_inner="'fx-c h6 ' + clazz_text"
         >
         <ui-i class="o-f-i-icon" :clazz="clazz_i" :i="i"/>
     </material-button>

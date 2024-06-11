@@ -1,9 +1,11 @@
 
+import { has_document } from '@/tool/web/doc';
 import { Store, createStore } from 'vuex';
 
 const _appStore: Store<AppStore> = createStore({
     
     state: <AppStore>{
+        document: has_document(),
 
         // 全局加载标识
         ioading: -1,

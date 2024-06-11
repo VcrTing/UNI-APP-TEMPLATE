@@ -34,7 +34,7 @@ const _clazz = (v: ReportSchema): string => {
     else {
 
     }
-    return (v.__tab_iive ? 'btn-pri-iht' : '') + sf
+    return (v.__tab_iive ? 'btn-pri-iht btn ' : 'btn') + sf
 }
 
 const tab = (i: number) => {

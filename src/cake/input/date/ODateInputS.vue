@@ -36,9 +36,7 @@
 </template>
     
 <script lang="ts" setup>
-import caniendar from '@/plugin/caniendar/caniendar.vue';
 import { promise } from '@/tool/util/future';
-import { changeDay } from '../../../plugin/caniendar/caniendar';
 import { is_nice_sn } from '@/tool/util/valued';
 
 const emt = defineEmits([ 'result' ])
@@ -51,7 +49,7 @@ const dropdown = ref()
 const caniendar_1 = ref()
 
 const funn = {
-    pastday: (n: number) => promise(() => emt('result', changeDay(n, new Date())) ),
+    pastday: (n: number) => promise(() => emt('result', caniendar_1.value.change_day(n, new Date())) ),
     reset: () => promise(() => {
         if (is_nice_sn(origin.value)) { emt('result', origin.value); } 
         else { emt('result', '') }

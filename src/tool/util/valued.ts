@@ -6,7 +6,7 @@ export const is_nice_one = (one: ONE | undefined | null) => {
     if (!one) return false
     for (const k in one) { return true } return false }
 
-export const cnv_str_bool = (str: string | undefined): boolean => {
+export const cnv_str_bool = (str: string | undefined = undefined): boolean => {
     if (!str) return false
     if (str.startsWith('1')) return true
     if (str.startsWith('true')) return true

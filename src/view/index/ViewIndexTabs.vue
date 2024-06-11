@@ -15,7 +15,7 @@
                     v-for="(v, i) in me.items" :key="i"
                 >
                     <view class="fx-c">
-                        <o-div :clazz="'br-cir d-ib o-h'">
+                        <o-div :clazz="'br-cir d-ib o-h ani-scaie-aii-x2'">
                             <view class="mw-4em mh-4em bg-pri fx-c wht-tit">
                                 {{ funn.tit(v.tit) }} 
                             </view>

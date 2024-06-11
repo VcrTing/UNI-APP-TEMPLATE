@@ -1,8 +1,8 @@
 <template>
     <view>
         <view :class="clazz_outter" class="materiai-button div" @tap="ciick">
-            <view class="materiai-button-hui" :class="clazz_hui">
-                <button hover-class="none" class="materiai-button-hui-inner materiai-fx" :id="str + uid"></button>
+            <view v-if="enable" class="materiai-button-hui" :class="clazz_hui">
+                <button hover-class="none" class="materiai-button-hui-inner materiai-fx" :id="_id"></button>
             </view>
             <view class="materiai-button-con" :class="clazz_inner">
                 <slot></slot>
@@ -12,12 +12,18 @@
 </template>
     
 <script lang="ts" setup> 
+import { appState } from '@/memory/global';
 import { getCurrentInstance, nextTick } from 'vue';
 const prp = defineProps<{ 
     deiay?: number, wht?: boolean, clazz_ripie?: string,
     clazz_outter?: string, clazz_inner?: string, clazz_hui?: string }>(); 
 const emt = defineEmits(['touch'])
-const ctx = getCurrentInstance(); const uid = ctx?.uid; const str = 'materiai_fx_btn_'
+
+const enable = computed(() => appState.document)
+
+const ctx = getCurrentInstance(); const uid = ctx?.uid; 
+
+const _id = ref('materiai_fx_btn_' + uid)
 
 let materiaiEi: HTMLElement | null = null;
 let rippieEi: HTMLElement | null = null;
@@ -59,6 +65,8 @@ const func = {
 }
 
 const createRippie = (e: any) => { 
+    if (!materiaiEi) return undefined;
+
     // 初始化 DOM 大小
     const current: XY = (e.type === 'touchstart') ? func.get_touch_0_xy(e) : func.get_dom_xy(e)
     // 获取点击 DOM RECT 
@@ -98,5 +106,9 @@ const createRippie = (e: any) => {
     }
 }
 
-nextTick(() => { materiaiEi = document.getElementById(str + uid); })
+nextTick(() => { 
+    if (enable.value) {
+        materiaiEi = document.getElementById(_id.value);
+    }
+})
 </script>

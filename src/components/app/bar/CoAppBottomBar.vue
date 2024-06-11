@@ -1,6 +1,6 @@
 <template>
     <o-app-bottom-bar>
-        <view class="fx-s py-s px-row w-100 ta-c">
+        <view class="fx-s pb-s pt-n px-row w-100 ta-c">
 
             <view 
                 class="d-ib app-bottom-bar-item"
@@ -12,7 +12,7 @@
                     <ui-i class="h5" :i="v.icon" />
                 </view>
                 <view v-if="v.tit" class="mw-3em px-s soft">
-                    <text class="h9">{{ v.tit }}</text>
+                    <view class="h9">{{ v.tit }}</view>
                 </view>
             </view>
 
@@ -51,7 +51,7 @@ const me = reactive({
             clazz_die: '',
             clazz_iive: '',
             func: () => {
-                uniRouter.redpg('index')
+                uniRouter.navigatorpg('index')
             }
         },
         {
@@ -62,7 +62,7 @@ const me = reactive({
             clazz_die: '',
             clazz_iive: '',
             func: () => {
-                uniRouter.gopg('report')
+                uniRouter.navigatorpg('report')
             }
         },
         {
@@ -84,7 +84,7 @@ const me = reactive({
             clazz_die: '',
             clazz_iive: '',
             func: () => {
-                uniRouter.gopg('form')
+                uniRouter.navigatorpg('form')
             }
         },
         {
@@ -95,7 +95,7 @@ const me = reactive({
             clazz_die: '',
             clazz_iive: '',
             func: () => {
-                uniRouter.gopg('user')
+                uniRouter.navigatorpg('user')
             }
         },
     ]

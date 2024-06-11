@@ -1,9 +1,9 @@
 <template>
-    <view class="py ts">
+    <view class="py ts bg-con">
         <view class="pb">
             <view class="header b fx-i" @tap="emt('close')">
                 <view>
-                    <o-f-i-s :i="'i'"/>
+                    <o-f-i-s :i="'r'"/>
                 </view>
                 <view>
                     您关注的报表
@@ -16,10 +16,10 @@
                 <view
 
                 >
-                    <view class="pb soft"
+                    <view class="pb-s soft"
                         v-for="(v, i) in columns" :key="i">
                         <o-div>
-                            <view class="pi pr-s">
+                            <view class="pi pr-s pb-s">
                                 <view class=" py-t">
                                     {{ v.title }}
                                 </view>
@@ -50,7 +50,7 @@ import { is_nice_one } from '@/tool/util/valued';
 
 const emt = defineEmits([ 'close' ])
 
-// const prp = defineProps<{}>()
+const prp = defineProps<{ idx: number }>()
 const item_key_iive = computed(() => reportDPState.item_key_iive)
 const columns = computed(() => reportDPState.columns)
 const index = computed(() => reportDPState.index)

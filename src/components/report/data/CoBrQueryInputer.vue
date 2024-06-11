@@ -33,5 +33,6 @@
 </template>
 
 <script setup lang="ts">
+import ODateInputS from '@/cake/input/date/ODateInputS.vue';
 defineProps<{ src: RSchemaQuery }>()
 </script>

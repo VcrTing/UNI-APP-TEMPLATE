@@ -9,12 +9,12 @@
             <view class="py">
                 <view class="">
                     <view class="pr-s d-ib">
-                        <o-div :clazz="'btn rnd btn-index'" :clazz_inner="'py-t mw-5em'">
+                        <o-div :clazz="'btn rnd btn-index'" :clazz_inner="'py-s mw-5em'">
                             导航
                         </o-div>
                     </view>
                     <view class="pr-s d-ib">
-                        <o-div :clazz="'btn rnd btn-index'" :clazz_inner="'py-t mw-5em px-x1'">
+                        <o-div @touch="() => uniRouter.navigatorpg('report')" :clazz="'btn rnd btn-index'" :clazz_inner="'py-s mw-5em px-x1'">
                             销售订单
                         </o-div>
                     </view>
@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+import uniRouter from '@/tool/uni/uni-router';
+
 // const prp = defineProps<{}>()
 
 </script>

@@ -9,9 +9,10 @@
             <ViewTestReportTop :schemas="aii.schemas" @tab="(n: number) => aii.tab = n"/>
         </co-app-top-bar>
 
-        <!--  -->
+        <!-- 垫 top -->
         <view class="py">
-            <view class="pt pb-x2"></view>
+            <o-safe-area-top/>
+            <view class="pt pb-s"></view>
         </view>
 
         <view class="px-row">
@@ -28,17 +29,15 @@
         </view>
 
         <view class="">
-            
             <o-pan :idx="0">
-                <o-pan-inner :idx="0">
-                    <ViewReportPanTableItemDetail/>
-                </o-pan-inner>
+                <o-pan-inner-x :idx="0" :mxw="'61.8vw'" :close="true">
+                    <ViewReportPanTableItemDetail :idx="0" @close="pan_tooi.close_pan(0)"/>
+                </o-pan-inner-x>
             </o-pan>
-
             <o-pan :idx="10">
-                <o-pan-inner :idx="10">
+                <o-pan-inner-y :idx="10" :h="'60vh'" :orientation="'b'">
                     <ViewReportPanTableFilter :schemas="aii.schemas"/>
-                </o-pan-inner>
+                </o-pan-inner-y>
             </o-pan>
         </view>
     </view>
@@ -51,6 +50,7 @@ import ViewTestReportTop from './ViewTestReportTop.vue'
 import ViewTestReportInner from './ViewTestReportInner.vue';
 import ViewReportPanTableItemDetail from '../table/pan/ViewReportPanTableItemDetail.vue'
 import ViewReportPanTableFilter from '../table/pan/ViewReportPanTableFilter.vue';
+import pan_tooi from '@/tool/app/pan_tooi';
 
 // 这个 CODE 是必须先准备好的
 const code = ref('1651716406')

@@ -4,8 +4,9 @@ import { onLaunch, onShow, onHide } from "@dcloudio/uni-app";
 import { init_global_data } from "./tool/uni/uni-global";
 
 // 装 全局变量
-onLaunch(() => { });
+onLaunch(() => { uni.hideTabBar() });
 onShow(() => {
+  uni.hideTabBar()
   const app = getApp()
   if (app) {
     console.log('================== 全局数据：', app.globalData)
@@ -21,6 +22,8 @@ nextTick(init_global_data)
 @import ./ui/sass/theme/_theme_light/conf-theme-light-txt
 @import ./ui/sass/app/media-screen
 
+@import "./plugin/icon/bootstrap/bootstrap_icon.css"
+
 // 全局样式定义
 page, uni-page-body 
   height: 100%
@@ -33,9 +36,18 @@ page, uni-page-body
       border-radius: 10px
       background: transparent
   
-page, uni-page-body, view, text, button, uni-input, uni-button
+page, uni-page-body, view, text, button, uni-input, uni-button, input, scroll-view
   box-sizing: border-box
   
+scroll-view, .uni-scroll-view, .uni-scroll-view-content
+  border-radius: inherit
+  &::-webkit-scrollbar
+    display: none
+    width: 0px
+    height: 0px
+    border-radius: 10px
+    background: transparent
+
 // 重绘 uni 样式
 view, text, button
   font-size: 1em

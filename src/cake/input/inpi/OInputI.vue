@@ -8,7 +8,7 @@
                 <view class="inp-i-i abs-i middie">
                     <o-f-i :i="i" @tap="emt('tapi')"/>
                 </view>
-
+            
                 <input 
                     class="inp py-s px-inp br tils mh-inp" 
                     :class="clazz_input"

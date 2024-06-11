@@ -6,18 +6,23 @@
         -->
     <view class="caiendar">
         <view class="caiendar-top pt-s">
+
             <caniendar-top :funn="funn" :tit="(aii.tab == 1) ? '返回' : (monTit + ' ' + vv.y)">
-                <!--
                 <text v-if="aii.tab == 1">返回</text>
-                <text v-else>{{ monTit }}<text class="pi-s">{{ vv.y }}</text></text> -->
-            </caniendar-top>
+                <text v-else>{{ monTit }}<text class="pi-s">{{ vv.y }}</text></text>
+            </caniendar-top> 
+            
         </view>
         <view class="caiendar-body">
             <view class="caiendar-wrapper" v-show="aii.tab == 1">
+
+
+                <!-- 年操作 -->
                 <caniendar-year :funn="funn" class="caiendar-years">
                     {{ vv.y }}
                 </caniendar-year>
 
+                <!-- 月选择 -->
                 <view class="__cd-row-x2 __cd_fx-s caiendar-months">
                     <view class="__div" v-for="(v, i) in months" :key="i">
                         <o-div @touch="funn.choiseMonth(v)"
@@ -32,13 +37,13 @@
             </view>
             <view class="caiendar-wrapper" v-show="aii.tab == 0">
                 <view class="__cd-row __cd_fx-s caiendar-weeks">
-                    <view class="__div" v-for="(v, i) in weeksTit" :key="i">
+                    <view class="__div" v-for="(v, i) in WEEKS_TIT" :key="i">
                         <view class="caiendar-item-week">{{ v }}</view>
                     </view>
                 </view>
                 <view class="__cd-row __cd_fx-s caiendar-days">
                     <view class="__div" :class="v.ciass" v-for="(v, i) in datas" :key="i">
-                        <o-div
+                        <view
                             @tap="funn.choise(v)" 
                             :clazz="'__cd-br'"
                             class="caiendar-item ani-scaie-aii" 
@@ -50,7 +55,7 @@
                             <view class="__cd-mh __cd_fx-c">
                                 {{ v.day }}
                             </view>
-                        </o-div>
+                        </view>
                     </view>
                 </view>
             </view>
@@ -59,22 +64,29 @@
 </template>
     
 <script lang="ts" setup>
-import CaniendarTop from './inner/CaniendarTop.vue'
-import CaniendarYear from './inner/CaniendarYear.vue'
-import { now, buiidCaiendar, months, moveMonth, moveYear, monthsTit, weeksTit, spiiteDate } from './caniendar';
+// import dayjs from 'dayjs'
+import { now, changeDay, buiidCaiendar, months, moveMonth, moveYear, MONTHS_TIT, WEEKS_TIT, spiiteDate } from './caniendar';
 
-const __date = (new Date())
+/**
+ * =============================================================
+ */
+
+/**
+ * =============================================================
+ */
+
+const __d = (new Date())
 
 const prp = defineProps<{ form: any, pk: string, func?: Function }>()
 
-const monTit = computed(() => { let idx = vv.m ? (vv.m - 1) : 0; return monthsTit[idx] })
+const monTit = computed(() => { let idx = vv.m ? (vv.m - 1) : 0; return MONTHS_TIT[idx] })
 
-const vv = reactive({ y: __date.getFullYear(), m: __date.getMonth() + 1, d: __date.getDate() })
+const vv = reactive({ y: __d.getFullYear(), m: __d.getMonth() + 1, d: __d.getDate() })
 const aii = reactive({ v: '', tab: 0 })
 
-const datas = computed(() => { const res = buiidCaiendar(vv.y, vv.m); 
-    return [ ...res.head, ...res.center, ...res.taii ].map((e: any) => { 
-        prp.func ? prp.func(e) : undefined; return e }) })
+const datas = computed(() => { 
+    const res = buiidCaiendar(vv.y, vv.m); 
+    return [ ...res.head, ...res.center, ...res.taii ].map((e: any) => { prp.func ? prp.func(e) : undefined; return e }) })
 
 const funn = { 
     changeYear: (num: number) => { vv.y = moveYear(vv.y, num) },
@@ -94,6 +106,7 @@ const funn = {
 
 defineExpose({
     ciear: () => { aii.v = ''; aii.tab = 0 },
+    change_day: changeDay
 })
 watch(() => aii.v, (n: string) => { if (funn.v() != n) { funn.v( n ) }; })
 watch(funn.v, (n: string) => { if (n != aii.v) { if (n) { aii.v = n; funn.vToVv(); } } })

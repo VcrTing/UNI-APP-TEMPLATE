@@ -19,5 +19,16 @@
     @extend .px-con
     @extend .py-con
     @extend .bg-con
+    @extend .bd
     @extend .br
+    @extend .ts
 
+.fx-con-hv
+    &:hover 
+        border-color: transparent
+.fx-con-fcs
+    &:active, &:focus, &:focus-visible
+        border-color: #d8dadd
+.fx-con-aii
+    @extend .fx-con-hv
+    @extend .fx-con-fcs

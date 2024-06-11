@@ -1,13 +1,13 @@
 <template>
     <view :class="class">
         <view class="py-s">
-            <o-input :pchd="'用户名'" :clazz_input="'mh-inp-x1 rnd'"
+            <o-input-i :pchd="'用户名'" :clazz_input="'mh-inp-x1 rnd'"
                 :def="form.username"
                 @result="func.username"
             />
         </view>
         <view class="py-s">
-            <o-input :pchd="'密码'" :clazz_input="'mh-inp-x1 rnd'" :typ="'password'"
+            <o-input-i :pchd="'密码'" :clazz_input="'mh-inp-x1 rnd'" :typ="'password'"
                 :def="form.password"
                 @result="func.password"
             />
@@ -15,7 +15,7 @@
         <view class="py-s">
 
         </view>
-        <view class="pb pt-x2 fx-c">
+        <view class="pb pt-x2">
             <o-button @tap="func.login" :clazz="'rnd w-100'" :clazz_text="'mh-btn-x1'">登录</o-button>
             <!--
             <o-f-i @tap="func.login" class="login-btn" :clazz="''" :clazz_text="'fx-c h1-imp w-2em h-2em'" :i="'a-r'"/>
@@ -55,7 +55,7 @@ const func = {
 
     success: () => {
         console.log('登录成功')
-        uniRouter.redpg('login_succ')
+        uniRouter.navigatorpg('login_succ')
     },
 
     username: (v: SN) => {

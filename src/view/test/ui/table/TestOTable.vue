@@ -13,7 +13,8 @@
                                     :style="v.__style" 
                                     :class="v.__class"
                                     class="td soft tbo-trangle-group"
-                                    
+                                    :idx="i"
+                                    :disabled="false"
                                     v-for="(v, i) in aii.columns" :key="i">
 
                                     <view class="mh-tr ih-tr fw-550">{{ v.title }}</view>
@@ -110,7 +111,7 @@ const func = {
         await reportDBDispatch('change', [ 'columns', aii.columns ])
 
         for (let i= 0; i< 1000; i++ ) {
-            data.value.push({ 物料编码: "XX009", 物料名称: "通用线", 库存量: "186.00", 单位: "米" })
+            // data.value.push({ 物料编码: "XX009", 物料名称: "通用线", 库存量: "186.00", 单位: "米" })
         }
     }),
     ser_columns: async (cols: MANY): MANY_PROMISE => {

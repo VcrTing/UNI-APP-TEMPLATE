@@ -9,6 +9,8 @@ const ser_schema_query = (src: RSchemaQueryOrigin): RSchemaQuery => {
     const res = <RSchemaQuery> { }
     
     if (src.alertKeysMap) {
+        console.log('-----------------------------')
+        console.log('alertKeysMap 1 =', src.alertKeysMap)
         res.alertKeysMap = must_one( jsoner.parse( src.alertKeysMap ) )
         console.log('alertKeysMap 2 =', jsoner.parse( src.alertKeysMap ))
     }
@@ -18,7 +20,7 @@ const ser_schema_query = (src: RSchemaQueryOrigin): RSchemaQuery => {
     res.defaultValue = src.defaultValue
     res.isHide = cnv_str_bool( src.isHide )
     res.isRequired = cnv_str_bool( src.isRequired )
-    res.options = must_one( jsoner.parse( src.options ) )
+    res.options = jsoner.parse( src.options )
     res.paramKey = src.paramKey
     res.paramValue = src.paramValue
     res.priority = src.priority

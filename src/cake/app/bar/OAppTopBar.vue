@@ -2,7 +2,7 @@
     <view>
         <view class="o-app-top-bar">
             <view class="bg-app-top-bar mh-app-top-bar">
-                <o-safe-area/>
+                <o-safe-area-top/>
                 <slot></slot>
             </view>
         </view>

@@ -8,7 +8,7 @@
 
         :deiay="deiay"
         :clazz_outter="'w-100'"
-        :clazz_inner="'py-s px-s w-100 mw-inp mh-inp fx-c h5 ' + clazz_text"
+        :clazz_inner="'py-s px-s w-100 mw-inp mh-inp fx-c h6 ' + clazz_text"
         >
         <ui-i :class="clazz_i" :i="i"/>
     </material-button>

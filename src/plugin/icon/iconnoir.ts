@@ -1,5 +1,7 @@
 
-
+export const iconnoir_style = {
+    'font-size': '1.2em'
+}
 
 export const iconnoir = <ONE> {
     'x': 'iconoir-xmark',

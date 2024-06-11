@@ -24,11 +24,15 @@
                 @dbtouch="funn.view_detail"
                 />
         </view>
-        <view class="pt">
+        <view class="">
+            <view class="mh-btn"></view>
             <view class="mh-btn"></view>
         </view>
         <view class="abs-b zi-s r-0 i-0">
+            <!--
             <o-button @touch="funn.search()" :clazz="'w-100'">查询</o-button>
+            -->
+            <ViewTestReportActionBar :schema="schema" @search="funn.search"/>
         </view>
     </view>
 </template>
@@ -41,6 +45,7 @@ import tbo_tooi from '@/tool/app/tbo_tooi';
 import report_data_net_util from '@/tool/business/report/report_data_net_util';
 import { future, futuring } from '@/tool/util/future';
 import { is_nice_one, must_arr, must_one } from '@/tool/util/valued';
+import ViewTestReportActionBar from './bar/ViewTestReportActionBar.vue';
 
 const prp = defineProps<{
     code: string,
@@ -65,7 +70,7 @@ const funn = {
         await reportDBDispatch('change', [ 'item', params[2] ])
         await reportDBDispatch('change', [ 'item_key_iive', params[3] ])
         await reportDBDispatch('change', [ 'columns', params[4] ])
-        pan_tooi.open_def_r(0, false)
+        pan_tooi.open_def_r(0, undefined)
     }),
     // 排序
     sort: (vv: string[]) => {

@@ -48,6 +48,9 @@ class Router {
         }
         catch(err: any) { this._err(err) }
     }
+    launchpg (name: string) {
+        this.launch( PAGES[ name ] )
+    }
 
     // 跳转到 导航栏目
     navigator (url: string) {
@@ -57,6 +60,9 @@ class Router {
             })
         }
         catch(err: any) { this._err(err) }
+    }
+    navigatorpg (name: string) {
+        this.navigator( PAGES[ name ] )
     }
 
     // 获取当前页面的 page 数据

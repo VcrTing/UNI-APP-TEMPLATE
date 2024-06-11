@@ -5,16 +5,12 @@
                 <slot></slot>
             </view>
 
-            <view class="abs-b i-0 w-100 fx-c">
+            <view class="abs-b i-0 w-100">
                 <view class="fx-c w-100 py h9 n tid">
                     Beyond © 2023 欧锦亦
                 </view>
+                <o-safe-area-bottom/>
             </view>
         </view>
     </root>
 </template>
-
-<script setup lang="ts">
-// const prp = defineProps<{}>()
-
-</script>

@@ -3,7 +3,7 @@
         <o-scroll-x :clazz="'br'">
             <view class="pag-index-banner fx-i">
                 <view class="d-ib pr-s" v-for="(v, i) in me.banners" :key="i">
-                    <view class="banner-item">
+                    <view class="banner-item ani-scaie-aii">
                         <o-div :clazz="'br'" :clazz_hui="'zi-x3-imp'">
                             <image class="w-100 banner-item-img br" mode="aspectFill" :src="v.img"/>
                         </o-div>

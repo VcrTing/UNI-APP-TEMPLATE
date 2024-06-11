@@ -1,7 +1,7 @@
 <template>
 	<page-meta :root-font-size="uiState.root_font_size_coefficient + 'px'" style="display: block;"/>
     <!-- APP 配置，这东西固定写这里，不能去掉 -->
-	<index-layout>
+	<index-layout class="index-layout">
         
 		<ViewTestReport/>
 	</index-layout>

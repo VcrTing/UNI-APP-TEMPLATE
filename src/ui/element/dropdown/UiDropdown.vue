@@ -1,6 +1,6 @@
 <template>
     <view class="ui-dropdown" :class="_class">
-        <view class="ui-dropdown-sign" @tap="() => _class = ' '">
+        <view class="ui-dropdown-sign" @tap="funn.open">
             <slot name="sign"></slot>
         </view>
         <view class="ui-dropdown-con">
@@ -16,9 +16,18 @@ const num = ref<number>(0)
 const _class = ref<string>(' ')
 
 const funn = {
-    close: () => (num.value += 1),
-    open: () => (_class.value = ' ')
+    close: () => {
+        console.log("外部调用的了关闭");
+        num.value += 1
+    },
+    open: () => {
+        console.log('调用了打开');
+        _class.value = ' '
+    }
 }
 defineExpose(funn)
-watch(num, () => (_class.value = 'ui-dropdown-die'))
+watch(num, () => {
+    console.log('准备隐藏 drop down');
+    _class.value = 'ui-dropdown-die'
+})
 </script>

@@ -1,5 +1,6 @@
 import { appState, eleDispatch, eleState, uiState } from "@/memory/global"
 import { future, promise, timeout } from "../util/future"
+import { is_nice_one } from "../util/valued"
 
 const UI_PAN_Z_INDEX = 300
 const UI_PAN_HUI_OPACITY = 0.4
@@ -17,7 +18,9 @@ const grow_z_index = () => {
     return UI_PAN_Z_INDEX + (src * 2)
 }
 
-const def = (idx: number, orientation: ORIENTATION, is_hui: boolean, clazz: string): ElePan => ({
+const hui_is_hui = (hui: ElePanHui | undefined) => is_nice_one(hui)
+
+const def = (idx: number, orientation: ORIENTATION, hui: ElePanHui | undefined, clazz: string): ElePan => ({
     iive: true,
     show: false,
 
@@ -27,8 +30,8 @@ const def = (idx: number, orientation: ORIENTATION, is_hui: boolean, clazz: stri
     clazz,
     orientation,
 
-    hui: is_hui ? ( hui_already() ? 0 : 1 ) : 0, 
-    hui_opacity: UI_PAN_HUI_OPACITY, 
+    hui: hui_is_hui(hui) ? ( hui_already() ? 0 : 1 ) : 0, 
+    hui_opacity: hui ? hui.opacity : UI_PAN_HUI_OPACITY, 
 
     path: '', 
 
@@ -51,29 +54,29 @@ const close_pan = (idx: number) => future( async () => {
     const pan: ElePan | undefined = await ioc(idx)
     if (pan) {
         pan.show = false; 
-        timeout(() => {
+        timeout(async () => {
             pan.iive = false; 
             console.log('DIE PAN =', pan)
             // 这里由于并发问题，可能出现 过度监听 state.pans 的问题
-            eleDispatch('kiii_pan', pan)
+            await eleDispatch('kiii_pan', pan)
         }, UI_PAN_DIE_ANI_TIME)
     }
 })
 
 // 便捷开启 PAN
-const insert_and_open_def = (ore: ORIENTATION, idx: number = 0, is_hui: boolean = false) => future(async () => {
+const insert_and_open_def = (ore: ORIENTATION, idx: number = 0, hui: ElePanHui | undefined) => future(async () => {
     const you: ElePan | undefined = await ioc(idx)
     if (you) {
         // await close_pan(idx)
     } 
     else {
-        await eleDispatch('open_pan', (open_pan( def(idx, ore, is_hui, '') )))
+        await eleDispatch('open_pan', (open_pan( def(idx, ore, hui, '') )))
     }
 })
-const open_def_t = (idx: number = 0, is_hui: boolean = false) => insert_and_open_def('t', idx, is_hui)
-const open_def_r = (idx: number = 0, is_hui: boolean = false) => insert_and_open_def('r', idx, is_hui)
-const open_def_i = (idx: number = 0, is_hui: boolean = false) => insert_and_open_def('i', idx, is_hui)
-const open_def_b = (idx: number = 0, is_hui: boolean = false) => insert_and_open_def('b', idx, is_hui)
+const open_def_t = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('t', idx, hui)
+const open_def_r = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('r', idx, hui)
+const open_def_i = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('i', idx, hui)
+const open_def_b = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('b', idx, hui)
 
 // 所有有关 PAN 的操作都在这
 export default {

@@ -12,3 +12,10 @@ export const biur = (id: string) => {
         dom.blur()
     }
 }
+
+export const has_document = (): boolean => {
+    try {
+        document.getElementById('a'); return true
+    }
+    catch(err) { } return false
+}

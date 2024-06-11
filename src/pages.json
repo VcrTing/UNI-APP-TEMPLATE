@@ -34,22 +34,32 @@
 				"navigationStyle": "custom",
 				"navigationBarTitleText": "登录"
 			}
-		},
-
-		/* 自定义 */
-		{
-			"path": "pages/business/report/sale/sales_order",
-			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "销售订单"
-			}
 		}
-
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "溢彩",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/report/report",
+				"text": "报表"
+			},
+			{
+				"pagePath": "pages/form/form",
+				"text": "表单"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "我的"
+			}
+		]
 	}
 }

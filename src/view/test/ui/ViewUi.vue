@@ -19,14 +19,40 @@
                 <o-button-out @touch="func.touch('pri out')">弹出一个 Pan</o-button-out>
                 <o-button-iht @touch="func.touch('pri iht')">弹出一个 Err</o-button-iht>
                 <view class="pt">
-                    <o-div :clazz="'br'" :clazz_inner="''">
+                    <o-div :clazz="'br'" :clazz_inner="''" @touch="func.eval5">
                         <view class="px py ta-c">
                             DIV
                         </view>
                     </o-div>
+                    <view class=""></view>
+
+                    <view class="fx-s">
+                        <o-div :clazz="'br d-ib mw-6em'" :clazz_inner="''">
+                            <view class="px py ta-c" @tap="func.clear">
+                                清空 storage
+                            </view>
+                        </o-div>
+                        <view>
+                            废弃 iconnoir: <ui-i :i="'i'"/>
+                            <!--
+                            <view :style="{
+                                'background': '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M21 7.35304L21 16.647C21 16.8649 20.8819 17.0656 20.6914 17.1715L12.2914 21.8381C12.1102 21.9388 11.8898 21.9388 11.7086 21.8381L3.30861 17.1715C3.11814 17.0656 3 16.8649 3 16.647L2.99998 7.35304C2.99998 7.13514 3.11812 6.93437 3.3086 6.82855L11.7086 2.16188C11.8898 2.06121 12.1102 2.06121 12.2914 2.16188L20.6914 6.82855C20.8818 6.93437 21 7.13514 21 7.35304Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.52844 7.29357L11.7086 11.8381C11.8898 11.9388 12.1102 11.9388 12.2914 11.8381L20.5 7.27777" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 21L12 12" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>'
+                            }"></view>
+                            -->
+                        </view>
+                        <view>
+                            bootstrap: <view class="bi bi-app-indicator"></view>
+                        </view>
+                    </view>
+                </view>
+                <view class="pb">
+                    <view>err1:{{ aii.err1 }}</view>
+                    <view>err2:{{ aii.err2 }}</view>
                 </view>
             </view>
-        <view class="py">
+
+        <view>
+            <view class="py">
             <!-- TABLE -->
             <view class="py">
                 <view class="b pri-tih h5">Table 要求功能</view>
@@ -45,127 +71,138 @@
                     <o-button class="w-100" @touch="func.ioad">加载</o-button>
                 </view>
             </view>
+            </view>
+                <!-- DIV -->
+                <view class="py">
+                    <o-div :clazz="'mb d-ib'" @touch="func.touch('t')">弹出顶部 Pan</o-div>
+                    <o-div :clazz="'mb d-ib'" :clazz_inner="'px py'" @touch="func.touch('r')">弹出右边 Pan</o-div>
+                    <o-div
+                        :clazz_inner="'py-s px'" 
+                        :clazz="'mb btn fx-aii-btn-pri-iht pri d-ib'" @touch="func.touch('pri')">Fx DIV Pri Iht</o-div>
+                    <o-div
+                        :clazz_inner="'py-s px'" 
+                        :clazz="'mb btn fx-aii-btn-pri-out pri d-ib'" @touch="func.touch('pri')">Fx DIV Pri Out</o-div>
+                </view>
+                <!-- 输入框 -->
+                <view class="py">
+                    <view>
+                        <o-input :label="''" :err="''"/>
+                    </view>
+                    <view class="pt">
+                        <ui-dropdown>
+                            <template #sign>
+                                <o-input-s/>
+                            </template>
+                            <template #con>
+                                <o-div><view class="px py">选择</view></o-div>
+                            </template>
+                        </ui-dropdown>
+                    </view>
+                    <view class="pt">
+                        <o-select-s :items="[
+                            { tit: '选择', value: 'a' }
+                        ]" :pk_tit="'tit'" :pk_value="'value'"/>
+                    </view>
+                </view>
+                <!-- 文字 -->
+                <view class="py">
+                    <view>
+                        <text class="tih pr">TIH</text>
+                        <text class="tit pr">TIT</text>
+                        <text class="tid pr">TID</text>
+                        <text class="tis pr">TIS</text>
+                    </view>
+                    <view>
+                        <text class="pri pr">PRI</text>
+                        <text class="pri-tih pr">PRI-TIH</text>
+                    </view>
+                    <view>
+                        <text class="sec-tih pr">SEC-TIH</text>
+                        <text class="sec-tit pr">SEC-TIT</text>
+                        <text class="sec-tid pr">SEC-TID</text>
+                        <text class="sec-tis pr">SEC-TIS</text>
+                    </view>
+                    <view>
+                        <text class="cot pr">COT</text>
+                        <text class="cot pr">COT</text>
+                        <text class="cod pr">COD</text>
+                        <text class="cos pr">COS</text>
+                    </view>
+                </view>
+                <!-- 背景色 -->
+                <view class="br o-h my">
+                    <view class="fx-c">
+                        <view class="view-ui-box bg-sec-n">
+                            <text class="sec-tit">背景色-主1</text>
+                        </view>
+                        <view class="view-ui-box bg-sec">
+                            <text class="sec-tit">背景色-主</text>
+                        </view>
+                    </view>
+                    <view class="fx-c">
+                        <view class="view-ui-box bg-sec-t">
+                            <text class="sec-tit">背景色-小</text>
+                        </view>
+                        <view class="view-ui-box bg-sec-s">
+                            <text class="sec-tit">背景色-次</text>
+                        </view>
+                    </view>
+                </view>
+                <!-- ICON -->
+                <view class="py">
+                    <view class="fx-i">
+                        <text>图标：</text>
+                        <o-f-i :i="'x'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
+                        <o-f-i :i="'i'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
+                        <o-f-i :i="'r'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
+                        <o-f-i :i="'a-i'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
+                        <o-f-i :i="'menu'" :clazz_ripie="'bg-pri-iht'" :clazz="'pri'" @touch="pan.close(0)"></o-f-i>
+                        <o-f-i :i="'a-r'" :clazz="'fx-aii-btn-pri btn-pri-iht'" @touch="pan.close(0)"></o-f-i>
+                    </view>
+                    <view class="fx-i pt-s">
+                        <o-button-i :i="'x'">关闭</o-button-i>
+                        <o-button-i :clazz="'btn-pri'" :i="'a-i'">返回</o-button-i>
+                    </view>
+                </view>
+                <!-- 状态 -->
+                <view class="py">
+                    <view>
+                        <text class="war pr">WAR</text>
+                        <text class="err pr">ERR</text>
+                        <text class="tid pr">TID</text>
+                        <text class="tis pr">TIS</text>
+                    </view>
+                    <view>
+                        <text class="pri pr">PRI</text>
+                        <text class="pri-tih pr">PRI-TIH</text>
+                    </view>
+                    <view class="py-s">
+                        <view class="bg-war px py-s br fx-hv-bg-war fx-fcs-bg-war">
+                            <view class="war">警告，您的网络连接错误，请重试。</view>
+                        </view>
+                    </view>
+                    <view class="py-s">
+                        <view class="bg-err px py-s br fx-hv-bg-err fx-fcs-bg-err">
+                            <view class="err">警告，您的网络连接错误，请重试。</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="py-x2"></view>
+            <o-pan :idx="0">
+                <o-pan-inner :idx="0">
+                    <ViewReportPanTableItemDetail/>
+                </o-pan-inner>
+            </o-pan>
+            <!--
+            <o-pan :idx="1">
+                <o-pan-inner :idx="1">
+                    <ViewReportPanTableFilter/>
+                </o-pan-inner>
+            </o-pan>
+            -->
         </view>
-            <!-- DIV -->
-            <view class="py">
-                <o-div :clazz="'mb d-ib'" @touch="pan.open('t')">弹出顶部 Pan</o-div>
-                <o-div :clazz="'mb d-ib'" :clazz_inner="'px py'" @touch="pan.open('r')">弹出右边 Pan</o-div>
-                <o-div
-                    :clazz_inner="'py-s px'" 
-                    :clazz="'mb btn fx-aii-btn-pri-iht pri d-ib'" @touch="func.touch('pri')">Fx DIV Pri Iht</o-div>
-                <o-div
-                    :clazz_inner="'py-s px'" 
-                    :clazz="'mb btn fx-aii-btn-pri-out pri d-ib'" @touch="func.touch('pri')">Fx DIV Pri Out</o-div>
-            </view>
-            <!-- 输入框 -->
-            <view class="py">
-                <view>
-                    <o-input :label="''" :err="''"/>
-                </view>
-                <view class="pt">
-                    <o-input-s :label="''"/>
-                </view>
-            </view>
-            <!-- 文字 -->
-            <view class="py">
-                <view>
-                    <text class="tih pr">TIH</text>
-                    <text class="tit pr">TIT</text>
-                    <text class="tid pr">TID</text>
-                    <text class="tis pr">TIS</text>
-                </view>
-                <view>
-                    <text class="pri pr">PRI</text>
-                    <text class="pri-tih pr">PRI-TIH</text>
-                </view>
-                <view>
-                    <text class="sec-tih pr">SEC-TIH</text>
-                    <text class="sec-tit pr">SEC-TIT</text>
-                    <text class="sec-tid pr">SEC-TID</text>
-                    <text class="sec-tis pr">SEC-TIS</text>
-                </view>
-                <view>
-                    <text class="cot pr">COT</text>
-                    <text class="cot pr">COT</text>
-                    <text class="cod pr">COD</text>
-                    <text class="cos pr">COS</text>
-                </view>
-            </view>
-            <!-- 背景色 -->
-            <view class="br o-h my">
-                <view class="fx-c">
-                    <view class="view-ui-box bg-sec-n">
-                        <text class="sec-tit">背景色-主1</text>
-                    </view>
-                    <view class="view-ui-box bg-sec">
-                        <text class="sec-tit">背景色-主</text>
-                    </view>
-                </view>
-                <view class="fx-c">
-                    <view class="view-ui-box bg-sec-t">
-                        <text class="sec-tit">背景色-小</text>
-                    </view>
-                    <view class="view-ui-box bg-sec-s">
-                        <text class="sec-tit">背景色-次</text>
-                    </view>
-                </view>
-            </view>
-            <!-- ICON -->
-            <view class="py">
-                <view class="fx-i">
-                    <text>图标：</text>
-                    <o-f-i :i="'x'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
-                    <o-f-i :i="'i'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
-                    <o-f-i :i="'r'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
-                    <o-f-i :i="'a-i'" :clazz="'sec-tit'" @touch="pan.close(0)"></o-f-i>
-                    <o-f-i :i="'menu'" :clazz_ripie="'bg-pri-iht'" :clazz="'pri'" @touch="pan.close(0)"></o-f-i>
-                    <o-f-i :i="'a-r'" :clazz="'fx-aii-btn-pri btn-pri-iht'" @touch="pan.close(0)"></o-f-i>
-                </view>
-                <view class="fx-i pt-s">
-                    <o-button-i :i="'x'">关闭</o-button-i>
-                    <o-button-i :clazz="'btn-pri'" :i="'a-i'">返回</o-button-i>
-                </view>
-            </view>
-            <!-- 状态 -->
-            <view class="py">
-                <view>
-                    <text class="war pr">WAR</text>
-                    <text class="err pr">ERR</text>
-                    <text class="tid pr">TID</text>
-                    <text class="tis pr">TIS</text>
-                </view>
-                <view>
-                    <text class="pri pr">PRI</text>
-                    <text class="pri-tih pr">PRI-TIH</text>
-                </view>
-                <view class="py-s">
-                    <view class="bg-war px py-s br fx-hv-bg-war fx-fcs-bg-war">
-                        <view class="war">警告，您的网络连接错误，请重试。</view>
-                    </view>
-                </view>
-                <view class="py-s">
-                    <view class="bg-err px py-s br fx-hv-bg-err fx-fcs-bg-err">
-                        <view class="err">警告，您的网络连接错误，请重试。</view>
-                    </view>
-                </view>
-            </view>
-        </view>
-
-        <view class="py-x2"></view>
-
-
-        <o-pan :idx="0">
-            <o-pan-inner :idx="0">
-                <ViewReportPanTableItemDetail/>
-            </o-pan-inner>
-        </o-pan>
-        <!--
-        <o-pan :idx="1">
-            <o-pan-inner :idx="1">
-                <ViewReportPanTableFilter/>
-            </o-pan-inner>
-        </o-pan>
-        -->
+       
     </view>
 </template>
 
@@ -177,8 +214,12 @@ import { reportDBDispatch } from '@/pages/business/report/data/report-data-page-
 import { future } from '@/tool/util/future';
 import TestOTable from './table/TestOTable.vue';
 
+import { Interpreter } from 'eval5'
+import { local, storage } from '@/tool/web/storage';
+
 const aii = reactive({
-    ioading: false
+    ioading: false,
+    err1: '', err2: ''
 })
 // const prp = defineProps<{}>()
 
@@ -205,6 +246,32 @@ const func = {
             aii.ioading = false
             console.log('加载完成')
         }, 3000)
+    },
+    eval5: () => {
+        try {
+            var interpreter = new Interpreter({});
+            const a = interpreter.evaluate("[{label: '大货',value: '大货'},{ label: '样布',value: '样布'}]");
+            console.log(a)
+        } catch(err) {
+            aii.err1 = err + ''
+        }
+        try {
+            var interpreter = new Interpreter({});
+            const b = interpreter.evaluate("{'codeParam':'Bdate','nameParam':''}");
+            console.log(b)
+        } catch(err) {
+            aii.err2 = err + ''
+        }
+    },
+    clear: () => {
+        try {
+            local.clean()
+            uni.clearStorageSync()
+            localStorage.clear()
+            sessionStorage.clear()
+        } catch(err) {
+            aii.err1 = err + ''
+        }
     }
 }
 </script>

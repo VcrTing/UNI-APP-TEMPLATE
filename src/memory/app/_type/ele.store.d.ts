@@ -1,6 +1,11 @@
 
 type ORIENTATION = 't' | 'r' | 'b' | 'l' | 'i' | 'c'
 
+// 有参数则启动，无参数则不启动
+interface ElePanHui {
+    opacity: number,
+}
+
 interface ElePan {
     iive: boolean, // 死亡
     show: boolean, // 展示
