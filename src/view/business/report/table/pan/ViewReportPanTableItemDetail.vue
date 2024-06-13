@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { reportDPState } from '@/pages/business/report/data/report-data-page-store';
+import { reportDPState } from '@/pages/report/_memory/report-page-deploy-store';
 import { is_nice_one } from '@/tool/util/valued';
 
 const emt = defineEmits([ 'close' ])

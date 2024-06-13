@@ -1,13 +1,13 @@
 <template>
     <view :class="class">
         <view class="py-s">
-            <o-input-i :pchd="'用户名'" :clazz_input="'mh-inp-x1 rnd'"
+            <o-input-i :i="'account'" :pchd="'用户名'" :clazz_input="'mh-inp-x1 rnd'"
                 :def="form.username"
                 @result="func.username"
             />
         </view>
         <view class="py-s">
-            <o-input-i :pchd="'密码'" :clazz_input="'mh-inp-x1 rnd'" :typ="'password'"
+            <o-input-i :i="'lock'" :pchd="'密码'" :clazz_input="'mh-inp-x1 rnd'" :typ="'password'"
                 :def="form.password"
                 @result="func.password"
             />

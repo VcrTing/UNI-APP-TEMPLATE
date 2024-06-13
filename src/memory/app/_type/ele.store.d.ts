@@ -24,6 +24,31 @@ interface ElePan {
     component: ONE | null // 组件内容
 }
 
+type AIERT_TYPE = 'err' | 'war' | 'succ'
+
+interface EleAiert {
+    idx: number,
+    iive: boolean, // 死亡
+    show: boolean, // 展示
+    init: boolean, // 是否加载了加载动画
+
+    z_index: number, // 默认占领 600 系列
+    clazz: string,
+
+    typed: AIERT_TYPE, // 样式类型
+
+    tit: string, // 提示标题
+    content: string, // 提示内容
+
+    func_touch: Function | undefined, // 点击时的调用
+    func_close: Function | undefined, // 关闭之后的调用
+
+    timed: number, // 停留时长
+    star: number, // 开始时间
+
+    stone: boolean, // 静态石头，固定在屏幕的
+    hui_z_index: number // 默认200系列
+}
 
 interface EleStore {
     
@@ -37,7 +62,10 @@ interface EleStore {
     
     // 多方位 弹出页，数组里面的弹框，全部展示
     pans: ElePan[ ],
+
+    // 顶部 错误弹出
+    aierts: EleAiert[ ]
 }
 
 type ELE_STORE_FIELD = 
-    'hui' | 'hui_z_index' | 'mods' | 'pans'
+    'hui' | 'hui_z_index' | 'mods' | 'pans' | 'aierts'

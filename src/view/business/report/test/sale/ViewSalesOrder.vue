@@ -92,8 +92,8 @@
 <script setup lang="ts">
 
 import { uiDispatch, uiState } from '@/memory/global';
-import server_report_data from '@/server/business/report/server_report_data';
-import server_report_schema from '@/server/business/report/server_report_schema';
+import server_report_data from '@/server/report/server_report_data';
+import server_report_schema from '@/server/report/server_report_schema';
 import { goLogin } from '@/tool/router/router';
 import { future, promise, timeout } from '@/tool/util/future';
 import { is_nice_arr, is_nice_one } from '@/tool/util/valued';

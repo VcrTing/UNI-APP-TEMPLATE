@@ -5,6 +5,7 @@ interface CoAppBottomBarItem {
     func: Function,
     tit: string,
     icon: string,
+    icon_iive: string,
     clazz_die: string,
     clazz_iive: string
 }

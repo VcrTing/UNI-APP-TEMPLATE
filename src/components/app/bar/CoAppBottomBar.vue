@@ -1,18 +1,20 @@
 <template>
     <o-app-bottom-bar>
-        <view class="fx-s pb-s pt-n px-row w-100 ta-c">
+        <view class="fx-s pb-n px-row w-100 ta-c">
 
             <view 
-                class="d-ib app-bottom-bar-item"
+                class="d-ib app-bottom-bar-item fx-c br-br br-bi"
                 v-for="(v, i) in me.bars" :key="i"
                 :class="(code == v.respond_standard_code) ? 'app-bottom-bar-item-iive ' + v.clazz_iive : v.clazz_die"
                 @tap="v.func()"
                 >
-                <view class="app-bottom-bar-item-icon">
-                    <ui-i class="h5" :i="v.icon" />
-                </view>
-                <view v-if="v.tit" class="mw-3em px-s soft">
-                    <view class="h9">{{ v.tit }}</view>
+                <view>
+                    <view class="app-bottom-bar-item-icon h5">
+                        <ui-i :i="v.icon" />
+                    </view>
+                    <view v-if="v.tit" class="mw-3em px-s pt-t soft">
+                        <view class="h9">{{ v.tit }}</view>
+                    </view>
                 </view>
             </view>
 
@@ -21,7 +23,12 @@
 </template>
 
 <script setup lang="ts">
+import { authGetters, authState, ulDispatch, ulState } from '@/memory/global';
+import server_ul_menu from '@/server/user/layout/server_ul_menu';
+import pan_tooi from '@/tool/app/pan_tooi';
 import uniRouter from '@/tool/uni/uni-router';
+import { future, futuring } from '@/tool/util/future';
+import { is_nice_arr, is_nice_one } from '@/tool/util/valued';
 
 
 // const prp = defineProps<{}>()
@@ -46,10 +53,11 @@ const me = reactive({
         {
             tit: '首页',
             icon: 'home',
+            icon_iive: 'home',
             path: 'pages/index/index',
             respond_standard_code: 'index',
             clazz_die: '',
-            clazz_iive: '',
+            clazz_iive: 'app-bottom-bar-item-iive',
             func: () => {
                 uniRouter.navigatorpg('index')
             }
@@ -57,10 +65,11 @@ const me = reactive({
         {
             tit: '报表',
             icon: 'report',
+            icon_iive: 'report',
             path: 'pages/report/report',
             respond_standard_code: 'report',
             clazz_die: '',
-            clazz_iive: '',
+            clazz_iive: 'app-bottom-bar-item-iive',
             func: () => {
                 uniRouter.navigatorpg('report')
             }
@@ -68,21 +77,23 @@ const me = reactive({
         {
             tit: '',
             icon: 'menu',
+            icon_iive: 'menu',
             path: '',
             respond_standard_code: 'menu',
             clazz_die: 'app-bottom-bar-btn',
-            clazz_iive: '',
+            clazz_iive: 'app-bottom-bar-item-iive',
             func: () => {
-                console.log('打开某个 PAN')
+                funn.index_manu()
             }
         },
         {
             tit: '表单',
             icon: 'form',
+            icon_iive: 'form',
             path: 'pages/form/form',
             respond_standard_code: 'form',
             clazz_die: '',
-            clazz_iive: '',
+            clazz_iive: 'app-bottom-bar-item-iive',
             func: () => {
                 uniRouter.navigatorpg('form')
             }
@@ -90,14 +101,32 @@ const me = reactive({
         {
             tit: '我的',
             icon: 'user',
+            icon_iive: 'user-f',
             path: 'pages/user/user',
             respond_standard_code: 'user',
             clazz_die: '',
-            clazz_iive: '',
+            clazz_iive: 'app-bottom-bar-item-iive',
             func: () => {
                 uniRouter.navigatorpg('user')
             }
         },
     ]
 })
+
+const aii = reactive({
+    ioading: false
+})
+
+const funn = {
+    // 打开首页 MENU
+    index_manu: () => futuring(aii, async () => {
+        if (authGetters.is_login) {
+            ulDispatch('init_menus')
+            pan_tooi.open_index_manu() // const menus: LayoutMenuItem[] | undefined = 
+        }
+        else {
+            console.log('没登录，不给打开 INDEX MENU')
+        }
+    }),
+}
 </script>

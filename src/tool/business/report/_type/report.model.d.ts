@@ -70,6 +70,9 @@ interface RSchemaQueryOrigin {
     priority: number
     reportId: number
     type: string
+
+    resOptions: ONE | MANY | undefined
+    resAlertKeysValue: ONE | undefined
 }
 interface RSchemaQuery {
     alertKeysMap: ONE
@@ -78,7 +81,7 @@ interface RSchemaQuery {
     defaultValue: SN
     isHide: boolean
     isRequired: boolean
-    options: ONE
+    options: ONE | MANY
     paramKey: string
     paramValue: string
     priority: number

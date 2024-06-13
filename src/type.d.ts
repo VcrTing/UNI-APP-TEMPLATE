@@ -28,6 +28,9 @@ declare global {
     
     // 后端
     type ORDER_BY = 'asc' | 'desc'
+
+    // VUEX
+    // type DISPATCH = (property) StoreOptions<?>.actions
 }
 
 export {};

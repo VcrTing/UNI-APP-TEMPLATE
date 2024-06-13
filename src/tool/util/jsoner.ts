@@ -5,8 +5,11 @@ import { Interpreter } from 'eval5'
 // 例子：{'codeParam':'Bdate','nameParam':''}
 // 例子：[{label: '大货',value: '大货'},{ label: '样布',value: '样布'}]
 
+
+const stringify = <T> (src: T): string => JSON.stringify( src )
+
 const parse = <T> (src: string | undefined): T => {
-    // try {
+    try {
         if (!src) return <T>{ }
         try {
             return JSON.parse(src)
@@ -21,8 +24,13 @@ const parse = <T> (src: string | undefined): T => {
             console.log('res =', res, typeof res, res instanceof Object)
             return res
         }
-    // } catch (err) { return <T>{ } }
+    } catch (err) { 
+        console.log('弹出错误，json 序列化有问题')
+        return <T>{ } }
 }
+
+
+const duplicate = <T> (src: T): T => parse( stringify( src ) )
 
 const __replace_str = (__e: String) => {
     return __e.replace(/'/gi, '"')
@@ -153,5 +161,8 @@ const test_example = (src: string) => {
 
 export default {
     parse,
+    stringify,
+    duplicate,
+    
     test_example
 }

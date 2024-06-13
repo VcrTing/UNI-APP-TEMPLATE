@@ -45,9 +45,25 @@
                         </view>
                     </view>
                 </view>
-                <view class="pb">
-                    <view>err1:{{ aii.err1 }}</view>
-                    <view>err2:{{ aii.err2 }}</view>
+                <view class="pb fx-i">
+                    <o-div :clazz="'br d-ib mw-6em'" :clazz_inner="''">
+                        <view class="px py ta-c" @tap="aiert_tooi.succ('操作成功。')">
+                            弹出操作成功
+                        </view>
+                    </o-div>
+                    <o-div :clazz="'br d-ib mw-6em'" :clazz_inner="''">
+                        <view class="px py ta-c" @tap="aiert_tooi.err('操作失败。')">
+                            弹出操作失败
+                        </view>
+                    </o-div>
+                    <o-div :clazz="'br d-ib mw-6em w-50'" :clazz_inner="''">
+                        <view class="px py ta-c" @tap="func.replaceAierts">
+                            替换aierts为新数组，导致 watch(aierts.value) 失效，watch(aierts)却会触发
+                        </view>
+                    </o-div>
+                </view>
+                <view>
+                    aierts.length: {{ eleState.aierts.length }}
                 </view>
             </view>
 
@@ -65,7 +81,9 @@
             </view>
             <view class="py">
                 <view class="br o-h">
+                    <!--
                     <test-o-table :class="'test-o-tbo'" :ioading="aii.ioading" @dbtouch="pan.view_detail"/>
+                    -->
                 </view>
                 <view>
                     <o-button class="w-100" @touch="func.ioad">加载</o-button>
@@ -191,7 +209,9 @@
             <view class="py-x2"></view>
             <o-pan :idx="0">
                 <o-pan-inner :idx="0">
+                    <!--
                     <ViewReportPanTableItemDetail/>
+                    -->
                 </o-pan-inner>
             </o-pan>
             <!--
@@ -208,14 +228,12 @@
 
 <script setup lang="ts">
 import pan_tooi from '@/tool/app/pan_tooi';
-import ViewReportPanTableItemDetail from '../../business/report/table/pan/ViewReportPanTableItemDetail.vue'
-import ViewReportPanTableFilter from '../../business/report/table/pan/ViewReportPanTableFilter.vue'
-import { reportDBDispatch } from '@/pages/business/report/data/report-data-page-store';
 import { future } from '@/tool/util/future';
-import TestOTable from './table/TestOTable.vue';
 
 import { Interpreter } from 'eval5'
 import { local, storage } from '@/tool/web/storage';
+import aiert_tooi from '@/tool/app/aiert_tooi';
+import { eleDispatch, eleState, ulState } from '@/memory/global';
 
 const aii = reactive({
     ioading: false,
@@ -228,15 +246,18 @@ const pan = {
         console.log("params =", params)
         await reportDBDispatch('change', [ 'index', params[0] ])
         await reportDBDispatch('change', [ 'item', params[1] ])
-        pan_tooi.open_def_r(0, false)
+        pan_tooi.open_def_r(0, undefined)
     }),
     view_filter: () => future(async () => {
-        pan_tooi.open_def_b(1, false)
+        pan_tooi.open_def_b(1, undefined)
     }),
     close: (idx: number) => pan_tooi.close_pan(idx)
 }
 
 const func = {
+    replaceAierts: async () => {
+        await eleDispatch('change', [ 'aierts', [ ] ])  
+    },
     touch: (s: string) => {
         console.log("按钮点击了 =", s)
     },
@@ -273,6 +294,10 @@ const func = {
             aii.err1 = err + ''
         }
     }
+}
+
+function reportDBDispatch(arg0: string, arg1: any[]) {
+    throw new Error('Function not implemented.');
 }
 </script>
 

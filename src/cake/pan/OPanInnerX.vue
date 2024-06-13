@@ -2,7 +2,8 @@
     <o-scroll-y class="pan-con bg-con" 
     
     :styie="{
-        'max-width': mxw ? mxw : '100vw'
+        'max-width': mxw ? mxw : '100vw',
+        'min-width': mw ? mw : '25vw'
     }">
         
         <slot></slot>
@@ -21,5 +22,5 @@
 
 <script setup lang="ts">
 import pan_tooi from '@/tool/app/pan_tooi';
-defineProps<{ idx: number, mxw?:string, close?: boolean }>()
+defineProps<{ idx: number, mw?: string, mxw?: string, close?: boolean }>()
 </script>

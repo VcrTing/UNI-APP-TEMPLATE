@@ -4,6 +4,7 @@ export const is_nice_sn = (sn: SN | undefined) => (sn != undefined && sn != null
 export const is_nice_arr = (arr: ANYS | undefined) => (arr && arr.length > 0)
 export const is_nice_one = (one: ONE | undefined | null) => { 
     if (!one) return false
+    if (one instanceof Array) return false
     for (const k in one) { return true } return false }
 
 export const cnv_str_bool = (str: string | undefined = undefined): boolean => {

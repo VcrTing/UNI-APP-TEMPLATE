@@ -9,10 +9,13 @@ const ser_schema_query = (src: RSchemaQueryOrigin): RSchemaQuery => {
     const res = <RSchemaQuery> { }
     
     if (src.alertKeysMap) {
-        console.log('-----------------------------')
-        console.log('alertKeysMap 1 =', src.alertKeysMap)
-        res.alertKeysMap = must_one( jsoner.parse( src.alertKeysMap ) )
-        console.log('alertKeysMap 2 =', jsoner.parse( src.alertKeysMap ))
+        // console.log('-----------------------------')
+        // console.log('alertKeysMap 1 =', src.alertKeysMap)
+        res.alertKeysMap = must_one( 
+            // jsoner.parse( src.alertKeysMap ) 
+            src.resAlertKeysValue
+        )
+        // console.log('alertKeysMap 2 =', jsoner.parse( src.alertKeysMap ))
     }
 
     res.alertSql = src.alertSql
@@ -20,7 +23,7 @@ const ser_schema_query = (src: RSchemaQueryOrigin): RSchemaQuery => {
     res.defaultValue = src.defaultValue
     res.isHide = cnv_str_bool( src.isHide )
     res.isRequired = cnv_str_bool( src.isRequired )
-    res.options = jsoner.parse( src.options )
+    res.options = src.resOptions ? src.resOptions : [] // jsoner.parse( src.options )
     res.paramKey = src.paramKey
     res.paramValue = src.paramValue
     res.priority = src.priority
@@ -64,7 +67,7 @@ const ser_schema = (src: ReportSchemaOrigin): ReportSchema | undefined => {
     }
 
     // 自家的
-    res.__tab_name = src.tableName
+    res.__tab_name = src.levelName
     res.__tab_iive = false
     res.__tbo_columns = []
     res.__tab_sort_key = tbo_tooi.pkg_sort_key('')

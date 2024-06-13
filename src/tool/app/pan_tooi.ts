@@ -13,9 +13,11 @@ const ioc = (idx: number): Promise<ElePan | undefined> => promise((): ElePan | u
     return (src.length == 0) ? undefined : src[0]
 })
 
-const grow_z_index = () => {
+// z - index 与 idx 有关，与 进入顺序有关
+const grow_z_index = (idx: number) => {
+    const sq = Math.sqrt(idx)
     const src = eleState.pans ? eleState.pans.length : 0
-    return UI_PAN_Z_INDEX + (src * 2)
+    return Math.floor( UI_PAN_Z_INDEX + (src * 2) + (sq * 2) )
 }
 
 const hui_is_hui = (hui: ElePanHui | undefined) => is_nice_one(hui)
@@ -24,7 +26,7 @@ const def = (idx: number, orientation: ORIENTATION, hui: ElePanHui | undefined, 
     iive: true,
     show: false,
 
-    z_index: grow_z_index(),
+    z_index: grow_z_index(idx),
     idx,
 
     clazz,
@@ -52,16 +54,18 @@ const UI_PAN_DIE_ANI_TIME = 362
 // 自带杀掉 PAN
 const close_pan = (idx: number) => future( async () => {
     const pan: ElePan | undefined = await ioc(idx)
-    if (pan) {
-        pan.show = false; 
-        timeout(async () => {
-            pan.iive = false; 
-            console.log('DIE PAN =', pan)
-            // 这里由于并发问题，可能出现 过度监听 state.pans 的问题
-            await eleDispatch('kiii_pan', pan)
-        }, UI_PAN_DIE_ANI_TIME)
-    }
+    pan ? close(pan) : undefined
 })
+
+const close = (pan: ElePan) => {
+    pan.show = false; 
+    timeout(async () => {
+        pan.iive = false; 
+        console.log('DIE PAN =', pan)
+        // 这里由于并发问题，可能出现 过度监听 state.pans 的问题
+        await eleDispatch('kiii_pan', pan)
+    }, UI_PAN_DIE_ANI_TIME)
+}
 
 // 便捷开启 PAN
 const insert_and_open_def = (ore: ORIENTATION, idx: number = 0, hui: ElePanHui | undefined) => future(async () => {
@@ -78,6 +82,11 @@ const open_def_r = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_o
 const open_def_i = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('i', idx, hui)
 const open_def_b = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('b', idx, hui)
 
+// 启用 INDEX MENU
+const open_index_manu = () => {
+    insert_and_open_def('i', 1000, { opacity: 0.0 })
+}
+
 // 所有有关 PAN 的操作都在这
 export default {
     ioc,
@@ -90,5 +99,7 @@ export default {
     open_def_b,
 
     open_pan,
-    close_pan
+    close_pan,
+
+    open_index_manu
 }

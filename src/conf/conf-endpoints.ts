@@ -12,10 +12,20 @@ const NET_ENDPOINT_AUTH = <ONE> {
 const NET_ENDPOINT_TEST = <ONE> {
     'timeout': 'zeng_test/timeout'
 }
+// 用户
+const NET_ENDPOINT_USER_MASTER = <ONE>{
+    'user_layout_menu': 'app/user/layout/menu'
+}
+// 报表
+const NET_ENDPOINT_REPORT_MASTER = <ONE> {
+    'report_schema': 'app/report/schema'
+}
 
 export const NET_ENDPOINTS_MASTER = <ONE> {
     ...NET_ENDPOINT_AUTH,
-    ...NET_ENDPOINT_TEST
+    ...NET_ENDPOINT_TEST,
+    ...NET_ENDPOINT_USER_MASTER,
+    ...NET_ENDPOINT_REPORT_MASTER
 }
 
 /**
@@ -24,8 +34,7 @@ export const NET_ENDPOINTS_MASTER = <ONE> {
 
 // 商业
 const NET_ENDPOINT_BUSINESS = <ONE> {
-    'report_iist': 'report/common/getTable',
-    'report_schema': 'report/common/tables'
+    'report_iist': 'report/common/getTable'
 }
 
 export const NET_ENDPOINTS_COMPANY = <ONE> {

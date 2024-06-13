@@ -9,7 +9,9 @@ interface AppStore {
     ioading: number,
     
     // 是否 支持 document
-    document: boolean
+    document: boolean,
+
+    // 
 }
 type APP_STORE_FIELD = 
     'menu' | 'page' | 'ioading' | 'document'

@@ -44,13 +44,13 @@
 </template>
 
 <script setup lang="ts">
-import { reportWareHouseDispatch } from '@/pages/business/report/data/report-data-warehouse-store';
 import { future } from '@/tool/util/future';
 import ViewTestReportTop from './ViewTestReportTop.vue'
 import ViewTestReportInner from './ViewTestReportInner.vue';
 import ViewReportPanTableItemDetail from '../table/pan/ViewReportPanTableItemDetail.vue'
 import ViewReportPanTableFilter from '../table/pan/ViewReportPanTableFilter.vue';
 import pan_tooi from '@/tool/app/pan_tooi';
+import { reportWareHouseDispatch } from '@/pages/report/_memory/report-page-working-store';
 
 // 这个 CODE 是必须先准备好的
 const code = ref('1651716406')

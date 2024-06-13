@@ -30,6 +30,7 @@ page, uni-page-body
   box-sizing: border-box
   overflow-x: hidden
   overflow-y: scroll
+  border-width: 0px
   @extend .fs
   &::-webkit-scrollbar
       width: 1px
@@ -38,6 +39,7 @@ page, uni-page-body
   
 page, uni-page-body, view, text, button, uni-input, uni-button, input, scroll-view
   box-sizing: border-box
+  outline: none !important
   
 scroll-view, .uni-scroll-view, .uni-scroll-view-content
   border-radius: inherit

@@ -3,6 +3,7 @@ import ui from './app/ui-store'
 import ele from './app/ele-store'
 import app from './app/app-store'
 import auth from './user/auth-store'
+import layout from './user/layout-store'
 
 // UI
 export const uiStore: Store<UiStore> = ui
@@ -39,3 +40,12 @@ export const eleCommit: Function = ele.commit
 export const eleDispatch: Function = ele.dispatch
 export const eleReFresh: (n: ELE_STORE_FIELD, v: any) => void = 
     (n: ELE_STORE_FIELD, v: any) => ele.dispatch('change', [ n, v ])
+
+// LAYOUT
+export const ulStore: Store<LayoutStore> = layout
+export const ulState: LayoutStore = layout.state
+export const ulGetters: ONE = layout.getters
+export const ulCommit: Function = layout.commit
+export const ulDispatch: Function = layout.dispatch
+export const ulReFresh: (n: LAYOUT_STORE_FIELD, v: any) => void = 
+    (n: LAYOUT_STORE_FIELD, v: any) => layout.dispatch('change', [ n, v ])

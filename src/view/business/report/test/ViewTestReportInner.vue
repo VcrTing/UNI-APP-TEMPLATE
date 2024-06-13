@@ -38,8 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { reportDBDispatch } from '@/pages/business/report/data/report-data-page-store';
-import server_report_data from '@/server/business/report/server_report_data';
+import server_report_data from '@/server/report/server_report_data';
 import pan_tooi from '@/tool/app/pan_tooi';
 import tbo_tooi from '@/tool/app/tbo_tooi';
 import report_data_net_util from '@/tool/business/report/report_data_net_util';
@@ -111,4 +110,8 @@ const funn = {
 }
 defineExpose(funn)
 nextTick(funn.init)
+
+function reportDBDispatch(arg0: string, arg1: any[]) {
+    throw new Error('Function not implemented.');
+}
 </script>
