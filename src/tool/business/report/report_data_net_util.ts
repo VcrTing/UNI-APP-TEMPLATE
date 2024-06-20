@@ -1,6 +1,8 @@
-import pager_tooi from "@/tool/app/pager_tooi"
-import tbo_tooi from "@/tool/app/tbo_tooi"
-import { cnv_bool_str, must_arr } from "@/tool/util/valued"
+import { authGetters } from "@/memory/global"
+import aiert_tooi from "@/tool/app/aiert_tooi"
+import { must_one } from "@/tool/util/valued"
+import pager_tooi from "../common/pager_tooi"
+import dynamic_pager_util from "../common/dynamic_pager_util"
 
 const buiid_query_param_map = (querys: RSchemaQuery[] = [ ]) => {
     const res: ONE = { }
@@ -10,39 +12,87 @@ const buiid_query_param_map = (querys: RSchemaQuery[] = [ ]) => {
     return res
 }
 
-const buiid_query_param = (me: ReportSchema, schemas: ReportSchema[]): ReportDataPageGetParam => {
+const buiid_query_param = (me: ReportSchema): ReportDataParam => {
 
-    const res = <ReportDataPageGetParam> { }
+    const res = <ReportDataParam> { }
 
     //
-    let paramMap: ONE = { }
-    must_arr(schemas).map((e: ReportSchema) => {
-        const _src = buiid_query_param_map(e.queryParams)
-        paramMap = { ...paramMap, ..._src }
-    })
-    res.paramMap = paramMap
+    res.paramMap = buiid_query_param_map(me.queryParams)
+    
     //
-    // res.field = ''
-    res.isCache = cnv_bool_str(false)
-    res.isDynamicFields = cnv_bool_str(me.isDynamicFields)
+    res.refresh = false
+    res.dynamic = me.isDynamicFields
 
-    res.reportId = me.id
-    res.procName = me.procName
+    res.id = me.id + ''
+    res.proc = me.procName
     res.tableName = me.tableName
-    res.fieldsMap = me.fieldsMap
 
-    res.column = tbo_tooi.pkg_sort_key( me.__tab_sort_key)
-    res.order = tbo_tooi.pkg_sort_value( me.__tab_sort_value )
-    res.pageNo = pager_tooi.def_pager_no( me.__pager_no )
-    res.pageSize = pager_tooi.def_pager_size( me.__pager_size )
+    const dynamic: DynamicPager = me.__tbo_dynamic_pager
+
+    res.star = pager_tooi.ser_star( dynamic.star )
+    res.end = pager_tooi.ser_end( pager_tooi.get_end_by_star( dynamic.star, dynamic.size ) )
     
     me.__net_query_param = res
-    console.log('构建查询参数后 =', me)
     //
     return res
 }
 
+// 获取查询条件
+const get_query_param = (schema: ReportSchema): ReportDataParam => {
+    const parma: ReportDataParam = must_one( buiid_query_param(schema) )
+    parma.username = authGetters.username;
+    if (!authGetters.is_login) aiert_tooi.err('该用户未登录，无法正常获取到报表数据。');
+    return parma;
+}
+
+// star 光标 位移
+/*
+const move_star_n_end = (schema: ReportSchema, num: number = 0, size: number = PAGER_DEF_SIZE) => {
+    const total: number = (schema.__tbo_total ? schema.__tbo_total : size)
+    const star_max_limit: number = pager_tooi.get_star_max_limit(total, size)
+    // 区间限制
+    let star: number = (schema.__pager_star ? schema.__pager_star : 0) + num
+    star = star > star_max_limit ? star_max_limit : star
+    star = star < 0 ? 0 : star
+    // 结束
+    schema.__pager_star = star
+    schema.__pager_end = pager_tooi.get_end_by_star(star, size)
+}
+*/
+
 export default {
+
+    get_query_param,
+
     buiid_query_param,
     buiid_query_param_map
 }
+
+
+// 页面变动
+/*
+const change_page = (schema: ReportSchema, num: number = 0, size: number = PAGER_DEF_SIZE) => {
+    const _ori: number = schema.__pager_no ? schema.__pager_no : 1
+    
+    let _zan: number = 1
+    if (num) {
+        _zan = _ori + num
+        const star = size * (_zan - 1)
+        // 
+        if (star > schema.__tbo_total) {
+            _zan = _ori
+
+            schema.__pager_end = schema.__tbo_total
+            schema.__pager_star = pager_tooi.get_star_by_end(schema.__pager_end)
+        }
+        else {
+
+            schema.__pager_star = star
+            schema.__pager_end = pager_tooi.get_end_by_star( star )
+        }
+    }
+    // 
+    schema.__pager_no = _zan < 1 ? 1 : _zan
+    schema.__pager_size = size
+}
+*/

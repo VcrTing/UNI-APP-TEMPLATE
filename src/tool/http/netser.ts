@@ -15,7 +15,7 @@ const ser_err_txt = (origin: string = ''): string => {
 
 // 雪莲花 后端返回 格式
 const ser_result = (src: Object = { }) : NET_RES => {
-    console.log('后端返回 = ', src)
+    // console.log('后端返回 = ', src)
 
     const _dt = src as HttpResultBackend;
     const code: number = _dt.code
@@ -41,7 +41,7 @@ export const netser_succ = (src: ONE): NET_RES => {
     const code: number = src.statusCode ? src.statusCode : 404
     const data: string | AnyObject | ArrayBuffer | undefined = src.data ? src.data : undefined
 
-    console.log('data type =', (typeof data), (data instanceof String), (data instanceof ArrayBuffer))
+    // console.log('data type =', (typeof data), (data instanceof String), (data instanceof ArrayBuffer))
 
     // 安全返回
     if (code < _HTTP_CODE_SAFE) {

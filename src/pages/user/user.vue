@@ -4,10 +4,13 @@
 	<index-layout class="index-layout">
         
         我的
-
+		<TestViewVisualRolling/>
+		<TestViewBetterScroll/>
 	</index-layout>
 </template>
 
 <script setup lang="ts">
 import { uiState } from '@/memory/global';
+import TestViewBetterScroll from '../../view/test/visual_rolling//TestViewBetterScroll.vue'
+import TestViewVisualRolling from '../../view/test/visual_rolling/TestViewVisualRolling.vue'
 </script>

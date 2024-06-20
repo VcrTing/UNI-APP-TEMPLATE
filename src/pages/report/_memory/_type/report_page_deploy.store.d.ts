@@ -1,13 +1,12 @@
-
+/*
 interface DynamicPager {
     page: number, // 原分页 page
     size: number, // 原 page size
-
     center: number, // 中间格子定位值
     num: number, // 上下展示的格子数量
-
     total: number // 原 总数据量
 }
+*/
 
 interface ReportPageDeploy {
     path: string,
@@ -39,7 +38,10 @@ interface ReportDataPageDeployStore {
 
     // schemas
     // code: schema 组合的数组
-    schemas: REPORT_SCHEMAS
+    schemas: REPORT_SCHEMAS,
+
+    // 缓存数据
+    caches: REPORT_DATA_TABLE_CACHES
 }
 
 

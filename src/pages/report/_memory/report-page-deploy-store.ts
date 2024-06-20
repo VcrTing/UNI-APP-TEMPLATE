@@ -1,7 +1,7 @@
 
 import report_deploy_util from '@/tool/business/report/report_deploy_util';
 import report_schemas_util from '@/tool/business/report/report_schemas_util';
-import { is_nice_one } from '@/tool/util/valued';
+import { is_nice_one, must_arr } from '@/tool/util/valued';
 import { Store, createStore } from 'vuex';
 
 const _reportDataPageStore: Store<ReportDataPageDeployStore> = createStore({
@@ -18,7 +18,10 @@ const _reportDataPageStore: Store<ReportDataPageDeployStore> = createStore({
 
         // 结构存储，这个才是 report table 的核心
         // 是 code : schema[] 的结构
-        schemas: <REPORT_SCHEMAS> { }
+        schemas: <REPORT_SCHEMAS>{ },
+
+        // 缓存数据，通常用于初始化页面加载还原数据作用
+        caches: <REPORT_DATA_TABLE_CACHES>{ }
     },
     getters: {
         
@@ -44,9 +47,18 @@ const _reportDataPageStore: Store<ReportDataPageDeployStore> = createStore({
             res = report_deploy_util.def(code)
             return res
         },
+
+        // 完成初始化
+        async_schema: ({ state }, schemas: ReportSchema[]) => {
+            let code: string = ''
+            must_arr(schemas).map((e: ReportSchema) => {
+                code = e.code
+            })
+            report_schemas_util.save_schemas(state, code, schemas)
+        },
         
         // 存入 结构
-        save_schema: ({ state }, v: ANYS): boolean => report_schemas_util.save_schema(state, v[0], v[1]),
+        save_schema: ({ state }, v: ANYS): boolean => report_schemas_util.save_schemas(state, v[0], v[1]),
         // 取出 结构
         get_schema: ({ state }, code: string | undefined): ReportSchema[] | undefined => report_schemas_util.get_schema(state, code),
         // 首次加载页面，对于结构的获取操作

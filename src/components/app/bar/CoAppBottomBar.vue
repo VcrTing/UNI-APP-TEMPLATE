@@ -23,13 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { authGetters, authState, ulDispatch, ulState } from '@/memory/global';
-import server_ul_menu from '@/server/user/layout/server_ul_menu';
+import { authGetters, ulDispatch } from '@/memory/global';
 import pan_tooi from '@/tool/app/pan_tooi';
 import uniRouter from '@/tool/uni/uni-router';
-import { future, futuring } from '@/tool/util/future';
-import { is_nice_arr, is_nice_one } from '@/tool/util/valued';
-
+import { futuring } from '@/tool/util/future';
 
 // const prp = defineProps<{}>()
 
@@ -122,7 +119,7 @@ const funn = {
     index_manu: () => futuring(aii, async () => {
         if (authGetters.is_login) {
             ulDispatch('init_menus')
-            pan_tooi.open_index_manu() // const menus: LayoutMenuItem[] | undefined = 
+            pan_tooi.open_index_menu() 
         }
         else {
             console.log('没登录，不给打开 INDEX MENU')

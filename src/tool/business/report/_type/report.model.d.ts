@@ -46,14 +46,18 @@ interface ReportSchema {
 
     __tab_name: string,
     __tab_iive: boolean,
-    __tab_sort_key: string, // 排序 KEY
-    __tab_sort_value: string, // 排序 值
-    __tbo_columns: OTableColumn[],
 
-    __pager_no: number, // 分页开始
-    __pager_size: number, // 分页尺寸
+    // __pager_no: number, // 分页页面
+    // __pager_size: number, // 分页尺寸
 
-    __net_query_param: ReportDataPageGetParam
+    __net_query_param: ReportDataParam,
+    __tbo_columns: OTableColumn[], // 表单的 列缓存数据
+    __tbo_total: number, // 表单总数据
+
+    __tbo_dynamic_pager: DynamicPager, // 该表单的 动态分页数据
+    
+    __tbo_sort_key: string, // 排序 KEY
+    __tbo_sort_value: string, // 排序 值
 }
 
 
@@ -94,3 +98,19 @@ interface RSchemaQuery {
     __value_def: SN
     __disable: boolean
 }
+
+// 表格列信息
+interface OTableColumnOrigin {
+    align: string,
+    dataIndex: string,
+    title: string,
+    width: number,
+    freeze: boolean
+}
+// 表格信息
+interface ReportDataTableMsgOrigin {
+    columns: OTableColumnOrigin[],
+    fields: string[],
+    total: number
+}
+

@@ -72,7 +72,7 @@ const ser_schema = (src: ReportSchemaOrigin): ReportSchema | undefined => {
     res.__tbo_columns = []
     res.__tab_sort_key = tbo_tooi.pkg_sort_key('')
     res.__tab_sort_value = tbo_tooi.pkg_sort_value('')
-    res.__net_query_param = <ReportDataPageGetParam> { }
+    res.__net_query_param = <ReportDataParam> { }
     //
     return res
 }

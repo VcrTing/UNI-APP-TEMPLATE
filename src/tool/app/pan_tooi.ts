@@ -83,9 +83,11 @@ const open_def_i = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_o
 const open_def_b = (idx: number = 0, hui: ElePanHui | undefined) => insert_and_open_def('b', idx, hui)
 
 // 启用 INDEX MENU
-const open_index_manu = () => {
-    insert_and_open_def('i', 1000, { opacity: 0.0 })
+const INDEX_PAN_IDX = 1000
+const open_index_menu = () => {
+    insert_and_open_def('i', INDEX_PAN_IDX, { opacity: 0.0 })
 }
+const close_index_menu = () => close_pan(INDEX_PAN_IDX)
 
 // 所有有关 PAN 的操作都在这
 export default {
@@ -101,5 +103,6 @@ export default {
     open_pan,
     close_pan,
 
-    open_index_manu
+    open_index_menu,
+    close_index_menu
 }

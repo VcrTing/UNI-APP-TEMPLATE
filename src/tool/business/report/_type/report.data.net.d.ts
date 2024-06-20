@@ -14,6 +14,28 @@ interface ReportDataPageGetParam {
     reportId: SN,
     tableName: string
 }
+
+// 获取数据的传参
+interface ReportDataParam {
+    id: string,
+    proc: string,
+    username: string,
+
+    tableName: string,
+
+    // page: number,
+    // size: number,
+    star: number,
+    end: number,
+
+    sortKey: string,
+    sortValue: string,
+
+    dynamic: boolean,
+    refresh: boolean,
+
+    paramMap: ONE
+}
 /*
 column
 : 

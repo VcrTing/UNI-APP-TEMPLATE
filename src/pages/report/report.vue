@@ -10,12 +10,12 @@
 
 		<!-- 选择内容 -->
         <view>
-			<view class="px py btn" @tap="funn.go('1651716406')">跳转到 CODE = 1651716406 销售订单</view>
-			<view class="px py btn" @tap="funn.go('1621955715')">跳转到 CODE = 1621955715 库存量查询</view>
+			<view class="px py-t btn" @tap="funn.go('1651716406')">跳转到 CODE = 1651716406 销售订单</view>
+			<view class="px py-t btn" @tap="funn.go('1621955715')">跳转到 CODE = 1621955715 库存量查询</view>
 		</view>
 
 		<!-- 报表内容页面 -->
-		<ViewReportData :deploy="deploy" :schemas="schemas"/>
+		<ViewReportData ref="report_data_page" :deploy="deploy" :schemas="schemas"/>
 
 		<!-- 选择报表的下拉框 -->
 
@@ -23,7 +23,7 @@
 
 	</index-layout>
 </template>
-
+ 
 <script setup lang="ts">
 import { uiState } from '@/memory/global';
 import { futuring } from '@/tool/util/future';
@@ -47,7 +47,7 @@ const aii = reactive({
 // 以 deploy 进行 页面驱动，所有初始化内容均在 deploy 内
 
 const deploy = reactive(<ONE>{
-    code: '',
+    code: null,
     pager: <DynamicPager>{ },
     view: [ ], // 临时缓存的数据，只缓存 pager.num * 2 行数据
     schemas: <ReportSchema[]>[ ], // 这是个大数据
@@ -56,12 +56,11 @@ const deploy = reactive(<ONE>{
 // 核心结构
 const schemas = ref<ReportSchema[] | undefined>(undefined)
 
+const report_data_page = ref()
+
 const funn = {
 	// 站内页面切换
-	go: async (cd: string) => {
-		console.log('跳转到 identify =', cd)
-		await reportDWDispatch('change', [ 'identify', cd ])
-	},
+	go: async (cd: string) => await reportDWDispatch('change', [ 'identify', cd ]),
 
 	// 专门给 deploy 加载 schemas
 	ioad_schemas: async (): Promise<ReportSchema[]> => {
@@ -80,12 +79,20 @@ const funn = {
 	async_deploy: async () => {
 		deploy.code = identify.value
 		// load schemas
-		schemas.value = await funn.ioad_schemas()
+		const _ss = await funn.ioad_schemas()
+		// 初始化先为空
+		if (schemas.value) schemas.value.length = 0
+		console.log('刷新页面的 ss =', _ss)
+		schemas.value = _ss
+		deploy.schemas = _ss
 		// load other
 		deploy.path = identify.value
-		deploy.schemas = schemas.value
+		// 驱动子页面重刷
+		report_data_page.value.refresh()
+		// 同步切换页面的次数
+		// await reportDWDispatch('switch_page_num_add')
 		// 完成加载
-		console.log('动态同步 页面完毕 =', deploy)
+		// console.log('动态同步 页面完毕 =', deploy)
 	},
 
 	// 页面初始化

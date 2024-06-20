@@ -1,23 +1,25 @@
 <template>
 	<page-meta :root-font-size="uiState.root_font_size_coefficient + 'px'" style="display: block;"/>
     <auth-layout>
-        <view class="ta-c pb-x2">
-            <view class="fx-c login-header-wrapper">
-               
-                <view>
-                    <image class="ui-img" :class="'h2 login-logo'" 
-                        :style="{ 'width': '4.8em', 'height': '1em' }"
-                        mode="aspectFill" :src="LOGO"/>
+        <view class="px-row">
+            <view class="bg-con br pt">
+                <view class="ta-c pb pt-x2">
+                    <view class="fx-c login-header-wrapper">
+                        <view>
+                            <image class="ui-img" :class="'h2 login-logo'" 
+                                :style="{ 'width': '4.8em', 'height': '1em' }"
+                                mode="aspectFill" :src="LOGO"/>
+                        </view>
+                        <!-- <image class="h2 login-logo" mode="aspectFill" :src="LOGO"/>
+                            -->
+                        <view class="h2 b login-header">欧锦亦</view>
+                    </view>
+                    <view class="py login-header-sub">深圳欧锦亦服饰有限公司</view>
                 </view>
-                <!-- <image class="h2 login-logo" mode="aspectFill" :src="LOGO"/>
-                    -->
-                <view class="h2 b login-header">欧锦亦</view>
+                <view class="w-100 fx-c pt px-x2">
+                    <ViewLoginForm :form="form" class="w-100"/>
+                </view>
             </view>
-            <view class="py login-header-sub">深圳欧锦亦服饰有限公司</view>
-        </view>
-        <view class="w-100 fx-c py px-x2">
-
-            <ViewLoginForm :form="form" class="w-100"/>
         </view>
         <view class="py-x3"></view>
         <view class="py-x2"></view>
@@ -45,9 +47,13 @@ const func = {
 nextTick(func.init)
 </script>
 
+
 <style lang="scss">
-page {
-    background: rgb(252, 252, 252);
+@import '../../../ui/sass/app/_conf.sass';
+
+// 全局样式定义
+page, uni-page-body {
+	background: $bg
 }
 
 .login-header-sub {

@@ -14,8 +14,7 @@ const _uiStore: Store<UiStore> = createStore({
 
     },
     mutations: {
-        change: (s: ONE, v: ANYS) => s[ v[0] ] = v[1],
-        
+        change: (s: ONE, v: ANYS) => s[ v[0] ] = v[1]
     },
 
     actions: {

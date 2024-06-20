@@ -6,7 +6,7 @@
 
 // 登录认证
 const NET_ENDPOINT_AUTH = <ONE> {
-    'login': 'app/cus/login' // 'sys/login'
+    'login': 'app/auth/login' // 'sys/login'
 }
 // 测试用例
 const NET_ENDPOINT_TEST = <ONE> {
@@ -34,7 +34,9 @@ export const NET_ENDPOINTS_MASTER = <ONE> {
 
 // 商业
 const NET_ENDPOINT_BUSINESS = <ONE> {
-    'report_iist': 'report/common/getTable'
+    'report_table_msg': 'app/report/data/msg',
+    'report_iist_first': 'app/report/data/first',
+    'report_iist_cache': 'app/report/data/cache'
 }
 
 export const NET_ENDPOINTS_COMPANY = <ONE> {

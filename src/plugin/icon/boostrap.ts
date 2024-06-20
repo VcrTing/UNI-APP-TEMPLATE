@@ -51,5 +51,8 @@ export const booticon = <ONE> {
     // 状态
     'succ': 'bi bi-check-circle',
     'err': 'bi bi-exclamation-triangle',
-    'war': 'bi bi-exclamation-circle'
+    'war': 'bi bi-exclamation-circle',
+
+    'lock': 'bi bi-lock',
+    'account': 'bi bi-person-circle'
 }
